@@ -162,11 +162,11 @@ function shouldRouteToWhatsApp(message) {
 function buildWhatsAppRoutingReply() {
   return (
     `Por aqui eu consigo só tirar dúvidas rápidas. Pra atendimento completo, chama a Kapte Mídia no WhatsApp: ${WHATSAPP_NUMBER} (${WHATSAPP_LINK}).\n` +
-    'Quer que eu te encaminhe pra l? agora?'
+    'Quer que eu te encaminhe pra lá agora?'
   );
 }
 
-function sanitizeAssistantReply(text) {
+function sanitizeAssistantReply(text, maxChars) {
   let out = String(text || '').trim();
 
   // Remove formatações comuns de Markdown que aparecem como ?asteriscosó no chat.
@@ -180,18 +180,24 @@ function sanitizeAssistantReply(text) {
   out = out.trim();
 
   // Limita tamanho (evita textão mesmo se o modelo extrapolar)
-  const MAX_CHARS = 520;
-  if (out.length > MAX_CHARS) {
-    out = out.slice(0, MAX_CHARS).trim();
-    out = out.replace(/[\s,.!?:;]+$/g, '');
-    out += '?';
+  const limit = Number.isFinite(Number(maxChars)) ? Math.max(220, Math.min(900, Math.trunc(Number(maxChars)))) : 420;
+  if (out.length > limit) {
+    let sliced = out.slice(0, limit).trim();
+    const lastPunct = Math.max(sliced.lastIndexOf('.'), sliced.lastIndexOf('!'), sliced.lastIndexOf('?'));
+    if (lastPunct >= Math.max(40, sliced.length - 80)) sliced = sliced.slice(0, lastPunct + 1).trim();
+    else {
+      const lastSpace = sliced.lastIndexOf(' ');
+      if (lastSpace > 40) sliced = sliced.slice(0, lastSpace).trim();
+    }
+    sliced = sliced.replace(/[\s,.!?:;]+$/g, '').trim();
+    out = sliced + '?';
   }
 
   return out;
 }
 
 function enforceTwoSentencesPlusQuestion(text) {
-  let out = sanitizeAssistantReply(text);
+  let out = sanitizeAssistantReply(text, 420);
   if (!out) return out;
 
   // Normaliza quebras
@@ -203,22 +209,15 @@ function enforceTwoSentencesPlusQuestion(text) {
     .map((p) => p.trim())
     .filter(Boolean);
 
-  // Mantém no máximo 2 sentenças de conteúdo
-  let contentParts = parts;
-
-  // Se tiver múltiplas perguntas, evita ficar interrogatório
-  const questions = contentParts.filter((p) => p.includes('?'));
-  if (questions.length > 1) {
-    contentParts = contentParts.map((p) => (p.includes('?') ? p.replaceAll('?', '.') : p));
-  }
-
-  // Remove perguntas do miolo (vamos colocar uma ?nica no final)
-  contentParts = contentParts.map((p) => p.replace(/\?+/g, '.').replace(/\.+$/g, '.').trim());
-  contentParts = contentParts.filter(Boolean);
+  const questionCandidate = [...parts].reverse().find((p) => p.includes('?')) || '';
+  const contentCandidates = parts
+    .map((p) => (p.includes('?') ? p.replace(/\?+/g, '.').trim() : p))
+    .map((p) => p.replace(/\.+$/g, '.').trim())
+    .filter(Boolean);
 
   // Pega as 2 primeiras sentenças conteúdo (curtas)
   const kept = [];
-  for (const p of contentParts) {
+  for (const p of contentCandidates) {
     if (kept.length >= 2) break;
     // Evita sentenças muito grandes
     const trimmed = p.length > 200 ? p.slice(0, 200).replace(/[\s,.!?:;]+$/g, '') + '?' : p;
@@ -226,19 +225,17 @@ function enforceTwoSentencesPlusQuestion(text) {
   }
 
   const fallbackQuestion = 'O que você quer resolver hoje: contato, dica rápida ou falar no WhatsApp?';
-  let question = questions[0];
-  if (question) {
-    question = sanitizeAssistantReply(question);
-    question = question.replace(/^[^?]*\?/g, '').trim();
-    // Se a sanitização ?comeu? a pergunta, usa fallback
-    if (!question || !question.endsWith('?')) question = fallbackQuestion;
-  } else {
-    question = fallbackQuestion;
-  }
+  let question = questionCandidate ? sanitizeAssistantReply(questionCandidate, 260) : '';
+  question = question.replace(/\s+/g, ' ').trim();
+  if (question && !question.endsWith('?')) question = question.replace(/[.!]+$/g, '').trim() + '?';
+  if (!question) question = fallbackQuestion;
+  if (question.length > 180) question = question.slice(0, 180).replace(/[\s,.!?:;]+$/g, '') + '?';
+
+  if (!kept.length) kept.push('Certo.');
 
   const joined = kept.join(' ');
   const final = `${joined} ${question}`.replace(/\s+/g, ' ').trim();
-  return sanitizeAssistantReply(final);
+  return sanitizeAssistantReply(final, 420);
 }
 
 function coerceIncomingMessages(body) {
@@ -284,12 +281,12 @@ async function handleChat(req, res) {
   const { model, normalizedFrom } = normalizeGroqModel(process.env.GROQ_MODEL);
   const baseSystemPrompt =
     process.env.GROQ_SYSTEM_PROMPT ||
-    'Voc? é o atendente virtual (balconista) do site da Kapte Mídia. Fale em pt-BR, de forma bem humana, curta e direta.';
+    'Você é o atendente virtual (balconista) do site da Kapte Mídia. Fale em pt-BR, de forma bem humana, curta e direta.';
 
   if (normalizedFrom && !warnedModels.has(normalizedFrom)) {
     warnedModels.add(normalizedFrom);
     console.warn(
-      `Modelo Groq '${normalizedFrom}' est? descontinuado. Usando '${model}' como padrão. Atualize GROQ_MODEL no .env para remover este aviso.`
+      `Modelo Groq '${normalizedFrom}' está descontinuado. Usando '${model}' como padrão. Atualize GROQ_MODEL no .env para remover este aviso.`
     );
   }
 
@@ -305,15 +302,18 @@ async function handleChat(req, res) {
     '- Não use listas longas, nem passo a passo (a menos que o usuário peça explicitamente).',
     '- Não use Markdown (nada de **asteriscos**, _, ou `código`).',
     '- Não invente preços, resultados garantidos, prazos fixos ou cases que não estejam no contexto.',
-    '- Voc? não assiste vídeos diretamente. Se perguntarem sobre vídeos, responda com base no contexto; se não tiver, peça o assunto do vídeo.',
+    '- Você não assiste vídeos diretamente. Se perguntarem sobre vídeos, responda com base no contexto; se não tiver, peça o assunto do vídeo.',
     context ? `\n\nContexto (site + base de conhecimento):\n${context}` : '',
   ]
     .filter(Boolean)
     .join('\n');
 
   if (!apiKey) {
-    sendJson(res, 500, {
-      error: 'GROQ_API_KEY não configurada. Crie um arquivo .env (veja .env.example).',
+    // Fallback: mantém o chat útil mesmo sem chave configurada.
+    sendJson(res, 200, {
+      reply: enforceTwoSentencesPlusQuestion(
+        `No momento o chat automático ainda não está configurado. Pra atendimento completo, chama a Kapte Mídia no WhatsApp: ${WHATSAPP_NUMBER} (${WHATSAPP_LINK}). Quer que eu te encaminhe pra lá agora?`
+      ),
     });
     return;
   }

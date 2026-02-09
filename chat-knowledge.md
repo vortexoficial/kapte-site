@@ -1,4 +1,4 @@
-﻿# Base de conhecimento ? Chat Kapta Midia
+﻿# Base de conhecimento — Chat Kapte Mídia
 
 Use este arquivo para treinar o chat com informações que não estão 100% explícitas no HTML,
 ou para detalhar serviços, diferenciais e principalmente conteúdos dos vídeos.
@@ -8,8 +8,8 @@ ou para detalhar serviços, diferenciais e principalmente conteúdos dos vídeos
 - Para solicitar/agendar diagnóstico: WhatsApp **5513997668787** (https://wa.me/5513997668787)
 
 ## Como responder (tom)
-- Respostas curtas, objetivas e ?teis.
-- Se faltar informação, faça 1?3 perguntas para qualificar.
+- Respostas curtas, objetivas e úteis.
+- Se faltar informação, faça 1–3 perguntas para qualificar.
 - Sempre que fizer sentido, convide para o diagnóstico gratuito e direcione para o WhatsApp.
 - Evitar textos longos e passo a passo, a menos que a pessoa peça.
 
@@ -18,7 +18,7 @@ ou para detalhar serviços, diferenciais e principalmente conteúdos dos vídeos
 ### video.mp4 (Sobre)
 - Resumo/transcrição:
 
-### video2.mp4 (Trip? da alta performance)
+### video2.mp4 (Tripé da alta performance)
 - Resumo/transcrição:
 
 ## Perguntas frequentes (adicione)

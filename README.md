@@ -113,12 +113,12 @@ Obs. importante: em hospedagem estática a chave fica **pública** (qualquer pes
 
 Obs. sobre CORS: o código envia os headers corretos (`Authorization`, `Content-Type`), mas se a API bloquear CORS para chamadas do browser, você vai precisar de um proxy.
 
-### ?Treinar? o chat com conteúdo do site
+### “Treinar” o chat com conteúdo do site
 
 O servidor já injeta no prompt o texto do site (HTML) + um arquivo de conhecimento.
 
 - Edite: `chat-knowledge.md`
-- Para ?incluir os vídeos?, coloque **transcrição ou resumo** l? (o modelo não consegue assistir MP4 diretamente).
+- Para incluir os vídeos, coloque **transcrição ou resumo** lá (o modelo não consegue assistir MP4 diretamente).
 
 ---
 
