@@ -4,6 +4,7 @@
     "maxHistoryMessages": 12,
     "maxContextChars": 12000,
     "maxOutputTokens": 160,
+    "maxOutputChars": 420,
     "maxEstimatedPromptTokens": 3200,
     "maxSessionEstimatedTokens": 2400,
     "tokenCharRatio": 4

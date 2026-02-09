@@ -450,10 +450,10 @@
       },
       {
         title: "A regra dos 7 toques",
-        text: "Estudos mostram que um cliente precisa interagir com sua marca em média 7 vezes antes de comprar. Se você não faz remarketing, est? deixando dinheiro na mesa."
+        text: "Estudos mostram que um cliente precisa interagir com sua marca em média 7 vezes antes de comprar. Se você não faz remarketing, está deixando dinheiro na mesa."
       },
       {
-        title: "Tráfego sem oferta ? prejuízo",
+        title: "Tráfego sem oferta = prejuízo",
         text: "Não adianta dobrar o orçamento do Google Ads se sua Landing Page não converte. Arrume a casa (oferta + copy) antes de convidar as visitas."
       },
       {
@@ -461,7 +461,7 @@
         text: "No digital, toda ação deixa rastro. Pare de adivinhar o que seu público gosta e comece a analisar as métricas de retenção e clique."
       },
       {
-        title: "Velocidade ? dinheiro",
+        title: "Velocidade = dinheiro",
         text: "40% dos usuários abandonam um site que demora mais de 3 segundos para carregar. Otimizar suas imagens é a forma mais barata de aumentar vendas."
       }
     ];
@@ -867,7 +867,7 @@
 })();
 
 // =============================
-// Chat Widget (Kapta Midia)
+// Chat Widget (Kapte Mídia)
 // =============================
 (function () {
   'use strict';
@@ -986,6 +986,7 @@
     // ATENÇÃO: em hospedagem estática, qualquer chave lida via fetch() fica pública.
     // =============================
     const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+    const SERVER_CHAT_ENDPOINT = '/api/chat';
     const DEFAULT_MODEL = 'llama-3.1-8b-instant';
 
     const DEFAULT_WHATSAPP_NUMBER = '5513997668787';
@@ -997,16 +998,17 @@
         maxHistoryMessages: 12,
         maxContextChars: 12000,
         maxOutputTokens: 160,
+        maxOutputChars: 420,
         maxEstimatedPromptTokens: 3200,
         maxSessionEstimatedTokens: 2400,
         tokenCharRatio: 4,
       },
       prompts: {
-        baseSystem: 'Voc? é o atendente virtual (balconista) do site da Kapte Mídia.',
+        baseSystem: 'Você é o atendente virtual (balconista) do site da Kapte Mídia.',
         tone: 'Fale em pt-BR, de forma humana, curta e direta.',
         rules: [
-          'Seu papel ?: (1) ajudar o visitante a entrar em contato e (2) dar 1 dica/insight curto.',
-          'Se faltar informação, faça 1?3 perguntas para qualificar.',
+          'Seu papel é: (1) ajudar o visitante a entrar em contato e (2) dar 1 dica/insight curto.',
+          'Se faltar informação, faça 1–3 perguntas para qualificar.',
           'Formato obrigatório: no máximo 2 frases de conteúdo + 1 pergunta no final (sempre).',
           'Não use Markdown (nada de **asteriscos**, _, listas com marcadores ou `código`).',
           'Não invente preços, resultados garantidos, prazos fixos ou cases que não estejam no contexto.',
@@ -1047,7 +1049,7 @@
       cannedReplies: [
         {
           whenAny: ['whatsapp', 'contato', 'telefone'],
-          reply: 'Voc? pode falar com a Kapte Mídia direto no WhatsApp: {WHATSAPP_LINK}. Quer que eu te ajude a escrever a mensagem?',
+          reply: 'Você pode falar com a Kapte Mídia direto no WhatsApp: {WHATSAPP_LINK}. Quer que eu te ajude a escrever a mensagem?',
           action: 'whatsapp',
         },
       ],
@@ -1099,6 +1101,7 @@
           merged.settings.maxHistoryMessages = clampInt(merged.settings.maxHistoryMessages, 2, 30, 12);
           merged.settings.maxContextChars = clampInt(merged.settings.maxContextChars, 0, 40000, 12000);
           merged.settings.maxOutputTokens = clampInt(merged.settings.maxOutputTokens, 32, 1024, 160);
+          merged.settings.maxOutputChars = clampInt(merged.settings.maxOutputChars, 220, 900, 420);
           merged.settings.maxEstimatedPromptTokens = clampInt(merged.settings.maxEstimatedPromptTokens, 600, 12000, 3200);
           merged.settings.maxSessionEstimatedTokens = clampInt(merged.settings.maxSessionEstimatedTokens, 400, 60000, 2400);
           merged.settings.tokenCharRatio = clampInt(merged.settings.tokenCharRatio, 2, 8, 4);
@@ -1339,11 +1342,11 @@
       const link = String(whatsappLink || DEFAULT_WHATSAPP_LINK);
       return (
         `Por aqui eu consigo só tirar dúvidas rápidas. Pra atendimento completo, chama a Kapte Mídia no WhatsApp: ${num} (${link}).\n` +
-        'Quer que eu te encaminhe pra l? agora?'
+        'Quer que eu te encaminhe pra lá agora?'
       );
     }
 
-    function sanitizeAssistantReply(text) {
+    function sanitizeAssistantReply(text, maxChars) {
       let out = String(text || '').trim();
       out = out.replaceAll('**', '');
       out = out.replaceAll('__', '');
@@ -1354,18 +1357,28 @@
       out = out.replace(/[ \t]{2,}/g, ' ');
       out = out.trim();
 
-      const MAX_CHARS = 520;
-      if (out.length > MAX_CHARS) {
-        out = out.slice(0, MAX_CHARS).trim();
-        out = out.replace(/[\s,.!?:;]+$/g, '');
-        out += '?';
+      const limit = clampInt(maxChars, 220, 900, 420);
+      if (out.length > limit) {
+        let sliced = out.slice(0, limit).trim();
+        // tenta cortar em um final mais “natural”
+        const lastPunct = Math.max(sliced.lastIndexOf('.'), sliced.lastIndexOf('!'), sliced.lastIndexOf('?'));
+        if (lastPunct >= Math.max(40, sliced.length - 80)) sliced = sliced.slice(0, lastPunct + 1).trim();
+        else {
+          const lastSpace = sliced.lastIndexOf(' ');
+          if (lastSpace > 40) sliced = sliced.slice(0, lastSpace).trim();
+        }
+        sliced = sliced.replace(/[\s,.!?:;]+$/g, '').trim();
+        out = sliced + '?';
       }
 
       return out;
     }
 
     function enforceTwoSentencesPlusQuestion(text) {
-      let out = sanitizeAssistantReply(text);
+      const cfg = configCache || null;
+      const maxChars = cfg?.settings?.maxOutputChars;
+
+      let out = sanitizeAssistantReply(text, maxChars);
       if (!out) return out;
 
       out = out.replace(/\s*\n\s*/g, ' ').trim();
@@ -1375,36 +1388,34 @@
         .map((p) => p.trim())
         .filter(Boolean);
 
-      let contentParts = parts;
-      const questions = contentParts.filter((p) => p.includes('?'));
-      if (questions.length > 1) {
-        contentParts = contentParts.map((p) => (p.includes('?') ? p.replaceAll('?', '.') : p));
-      }
-
-      contentParts = contentParts.map((p) => p.replace(/\?+/g, '.').replace(/\.+$/g, '.').trim());
-      contentParts = contentParts.filter(Boolean);
+      const questionCandidate = [...parts].reverse().find((p) => p.includes('?')) || '';
+      const contentCandidates = parts
+        .map((p) => (p.includes('?') ? p.replace(/\?+/g, '.').trim() : p))
+        .map((p) => p.replace(/\.+$/g, '.').trim())
+        .filter(Boolean);
 
       const kept = [];
-      for (const p of contentParts) {
+      for (const p of contentCandidates) {
         if (kept.length >= 2) break;
         const trimmed = p.length > 200 ? p.slice(0, 200).replace(/[\s,.!?:;]+$/g, '') + '?' : p;
         kept.push(trimmed);
       }
 
       const fallbackQuestion = 'O que você quer resolver hoje: contato, dica rápida ou falar no WhatsApp?';
-      let question = questions[0];
-      if (question) {
-        question = sanitizeAssistantReply(question);
-        question = question.replace(/^[^?]*\?/g, '').trim();
-        if (!question || !question.endsWith('?')) question = fallbackQuestion;
-      } else {
-        question = fallbackQuestion;
-      }
+      let question = questionCandidate ? sanitizeAssistantReply(questionCandidate, maxChars) : '';
+      question = question.replace(/\s+/g, ' ').trim();
+      if (question && !question.endsWith('?')) question = question.replace(/[.!]+$/g, '').trim() + '?';
+      if (!question) question = fallbackQuestion;
+      if (question.length > 180) question = question.slice(0, 180).replace(/[\s,.!?:;]+$/g, '') + '?';
+
+      if (!kept.length) kept.push('Certo.');
 
       const joined = kept.join(' ');
       const final = `${joined} ${question}`.replace(/\s+/g, ' ').trim();
-      return sanitizeAssistantReply(final);
+      return sanitizeAssistantReply(final, maxChars);
     }
+
+    let configCache = null;
 
     function extractGroqError(data) {
       try {
@@ -1422,6 +1433,7 @@
 
     async function sendToGroq() {
       const config = await loadChatConfig();
+      configCache = config;
       const tokenCharRatio = config && config.settings ? config.settings.tokenCharRatio : 4;
 
       const whatsappNumber = config?.actions?.whatsapp?.number || DEFAULT_WHATSAPP_NUMBER;
@@ -1434,7 +1446,7 @@
         if (isConfirmMessage(userMessage, confirmKeywords) && lastAssistantMentionsWhatsApp()) {
           openExternalLink(pendingAction.link);
           pendingAction = null;
-          return enforceTwoSentencesPlusQuestion(`Perfeito. Aqui est? o link: ${whatsappLink}. Quer que eu te ajude a escrever a mensagem?`);
+          return enforceTwoSentencesPlusQuestion(`Perfeito. Aqui está o link: ${whatsappLink}. Quer que eu te ajude a escrever a mensagem?`);
         }
       }
 
@@ -1453,6 +1465,30 @@
       if (shouldRouteToWhatsApp(userMessage, config?.actions?.whatsapp?.routeKeywords)) {
         pendingAction = { type: 'whatsapp', link: whatsappLink };
         return enforceTwoSentencesPlusQuestion(buildWhatsAppRoutingReply(whatsappNumber, whatsappLink));
+      }
+
+      // Preferir backend (mais seguro e sem expor chave no navegador)
+      try {
+        const historyForRequest = chatHistory.slice();
+        const res = await fetch(SERVER_CHAT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: historyForRequest }),
+        });
+
+        // Se não existe backend (site estático), cai pro modo client-side.
+        if (res.ok) {
+          const data = await res.json().catch(() => null);
+          const reply = data && typeof data.reply === 'string' ? data.reply : '';
+          if (reply && reply.trim()) return enforceTwoSentencesPlusQuestion(reply);
+        } else if (res.status !== 404 && res.status !== 405) {
+          // Erros do backend (500, 401 etc.) devem aparecer como mensagem amigável.
+          const data = await res.json().catch(() => null);
+          const detail = (data && (data.error || data.detail)) ? String(data.error || data.detail) : '';
+          if (detail) throw new Error(detail);
+        }
+      } catch (err) {
+        // se falhar aqui, ainda tentamos o client-side abaixo
       }
 
       const { apiKey, model: envModel } = await loadGroqEnv();
@@ -1553,8 +1589,10 @@
       } catch (err) {
         typing.removeAttribute('aria-busy');
         const errMsg = (err && err.message) ? String(err.message) : '';
-        if (errMsg.includes('GROQ_API_KEY') || errMsg.includes('env.txt') || errMsg.includes('.env')) {
-          typing.textContent = 'Chat ainda não configurado. Crie um arquivo env.txt (ou .env) com GROQ_API_KEY=SUACHAVE e publique junto do site.';
+        if (errMsg.includes('GROQ_API_KEY')) {
+          typing.textContent = 'Chat ainda não configurado no servidor. Configure GROQ_API_KEY no backend (Node/serverless) e tente novamente.';
+        } else if (errMsg.includes('env.txt') || errMsg.includes('.env')) {
+          typing.textContent = 'Chat ainda não configurado. Para site estático, isso exigiria publicar a chave (não recomendado). O ideal é usar um backend (/api/chat).';
         } else if (errMsg.toLowerCase().includes('cors')) {
           typing.textContent = 'Seu navegador bloqueou a chamada direta (CORS/rede). Se isso acontecer no GitHub Pages, você vai precisar de um proxy (serverless) para o chat.';
         } else {
