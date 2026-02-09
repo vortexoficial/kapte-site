@@ -161,9 +161,16 @@ function shouldRouteToWhatsApp(message) {
 
 function buildWhatsAppRoutingReply() {
   return (
-    `Por aqui eu consigo só tirar dúvidas rápidas. Pra atendimento completo, chama a Kapte Mídia no WhatsApp: ${WHATSAPP_NUMBER} (${WHATSAPP_LINK}).\n` +
+    `Pra um diagnóstico mais completo, o melhor é pelo WhatsApp: ${WHATSAPP_NUMBER} (${WHATSAPP_LINK}).\n` +
     'Quer que eu te encaminhe pra lá agora?'
   );
+}
+
+function getTimeGreeting() {
+  const hour = new Date().getHours();
+  if (hour >= 5 && hour < 12) return 'Bom dia';
+  if (hour >= 12 && hour < 18) return 'Boa tarde';
+  return 'Boa noite';
 }
 
 function sanitizeAssistantReply(text, maxChars) {
@@ -312,7 +319,7 @@ async function handleChat(req, res) {
     // Fallback: mantém o chat útil mesmo sem chave configurada.
     sendJson(res, 200, {
       reply: enforceTwoSentencesPlusQuestion(
-        `No momento o chat automático ainda não está configurado. Pra atendimento completo, chama a Kapte Mídia no WhatsApp: ${WHATSAPP_NUMBER} (${WHATSAPP_LINK}). Quer que eu te encaminhe pra lá agora?`
+        `${getTimeGreeting()}! Tudo bem? Como posso te ajudar hoje — você gostaria de um diagnóstico gratuito?`
       ),
     });
     return;

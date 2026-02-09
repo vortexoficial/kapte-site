@@ -893,6 +893,7 @@
       lastRequestEstimatedTokens: 0,
     };
     let pendingAction = null;
+    let welcomeInjected = false;
 
     function pushHistory(role, content) {
       const text = typeof content === 'string' ? content.trim() : '';
@@ -927,6 +928,31 @@
         hideNudge();
         setTimeout(() => input.focus(), 0);
         scrollToBottom();
+
+        // Mensagem inicial humanizada + oferta de diagnóstico
+        if (!welcomeInjected && chatHistory.length === 0) {
+          welcomeInjected = true;
+          loadChatConfig()
+            .then((config) => {
+              // Se o usuário já enviou mensagem enquanto a config carregava, não injeta o welcome.
+              if (panel.hidden || chatHistory.length !== 0) return;
+
+              const whatsappNumber = config?.actions?.whatsapp?.number || DEFAULT_WHATSAPP_NUMBER;
+              const whatsappLink = buildWhatsAppLink(whatsappNumber);
+              pendingAction = { type: 'diagnostic', link: whatsappLink };
+
+              const welcome = buildWelcomeMessage();
+              appendMessage('assistant', welcome);
+              pushHistory('assistant', welcome);
+            })
+            .catch(() => {
+              if (panel.hidden || chatHistory.length !== 0) return;
+              pendingAction = { type: 'diagnostic', link: DEFAULT_WHATSAPP_LINK };
+              const welcome = buildWelcomeMessage();
+              appendMessage('assistant', welcome);
+              pushHistory('assistant', welcome);
+            });
+        }
       } else {
         // Nova conversa a cada fechamento (evita contexto antigo e mantém ?pergunta primeiro?).
         try {
@@ -939,7 +965,20 @@
         } catch (_) {}
 
         pendingAction = null;
+        welcomeInjected = false;
       }
+    }
+
+    function getTimeGreeting() {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 12) return 'Bom dia';
+      if (hour >= 12 && hour < 18) return 'Boa tarde';
+      return 'Boa noite';
+    }
+
+    function buildWelcomeMessage() {
+      const greeting = getTimeGreeting();
+      return `${greeting}! Tudo bem? Como posso te ajudar? Gostaria de um diagnóstico gratuito?`;
     }
 
     function escapeHtml(text) {
@@ -1341,7 +1380,7 @@
       const num = String(whatsappNumber || DEFAULT_WHATSAPP_NUMBER);
       const link = String(whatsappLink || DEFAULT_WHATSAPP_LINK);
       return (
-        `Por aqui eu consigo só tirar dúvidas rápidas. Pra atendimento completo, chama a Kapte Mídia no WhatsApp: ${num} (${link}).\n` +
+        `Pra um diagnóstico mais completo, o melhor é pelo WhatsApp: ${num} (${link}).\n` +
         'Quer que eu te encaminhe pra lá agora?'
       );
     }
@@ -1396,7 +1435,8 @@
 
       const kept = [];
       for (const p of contentCandidates) {
-        if (kept.length >= 2) break;
+        // Limite de conteúdo: até 3 frases curtas
+        if (kept.length >= 3) break;
         const trimmed = p.length > 200 ? p.slice(0, 200).replace(/[\s,.!?:;]+$/g, '') + '?' : p;
         kept.push(trimmed);
       }
@@ -1440,6 +1480,36 @@
       const whatsappLink = buildWhatsAppLink(whatsappNumber);
 
       const userMessage = (chatHistory.slice().reverse().find((m) => m && m.role === 'user') || {}).content || '';
+
+      function isDeclineMessage(message) {
+        const text = normalizeForIntent(message).trim();
+        if (!text) return false;
+        return (
+          text === 'nao' ||
+          text === 'não' ||
+          text === 'n' ||
+          text === 'agora nao' ||
+          text === 'agora não' ||
+          text === 'depois' ||
+          text === 'talvez'
+        );
+      }
+
+      if (pendingAction && pendingAction.type === 'diagnostic') {
+        const confirmKeywords = config?.actions?.whatsapp?.confirmKeywords;
+        if (isConfirmMessage(userMessage, confirmKeywords)) {
+          const link = pendingAction.link || whatsappLink;
+          openExternalLink(link);
+          pendingAction = null;
+          return enforceTwoSentencesPlusQuestion(`Perfeito. Vou te encaminhar agora: ${link}. Quer que eu te ajude a escrever a mensagem?`);
+        }
+        if (isDeclineMessage(userMessage)) {
+          pendingAction = null;
+          return enforceTwoSentencesPlusQuestion('Sem problema. Me conta rapidinho: qual é seu nicho e o que você quer melhorar hoje?');
+        }
+        // Se respondeu outra coisa, segue atendimento normal sem forçar diagnóstico
+        pendingAction = null;
+      }
 
       if (pendingAction && pendingAction.type === 'whatsapp') {
         const confirmKeywords = config?.actions?.whatsapp?.confirmKeywords;
@@ -1497,9 +1567,12 @@
       const ctx = await loadChatContext(config?.settings?.maxContextChars);
       const rules = Array.isArray(config?.prompts?.rules) ? config.prompts.rules : [];
 
+      const greetingHint = getTimeGreeting();
+
       const systemPrompt = [
         String(config?.prompts?.baseSystem || DEFAULT_CHAT_CONFIG.prompts.baseSystem).trim(),
         String(config?.prompts?.tone || DEFAULT_CHAT_CONFIG.prompts.tone).trim(),
+        `Saudação sugerida agora: ${greetingHint}.`,
         rules.length ? `Regras:\n- ${rules.map((r) => String(r)).join('\n- ')}` : '',
         ctx ? `Contexto do site (use somente se ajudar):\n${ctx}` : '',
       ]
