@@ -1,0 +1,1144 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Kapte Mídia, marketing estratégico, conteúdo e posicionamento para empresas que querem aparecer, comunicar melhor e crescer com consistência." />
+  <title>Kapte Mídia - Marketing estratégico</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/icon.png" />
+
+  <!-- Preview ao compartilhar (WhatsApp / Open Graph) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Kapte Mídia" />
+  <meta property="og:title" content="Kapte Mídia, Diagnóstico estratégico" />
+  <meta property="og:description" content="Solicite um diagnóstico estratégico e descubra oportunidades de posicionamento, conteúdo e campanhas para sua marca crescer com clareza." />
+  <meta property="og:image" content="assets/images/icon.png" />
+
+  <!-- Twitter (também ajuda em alguns previews) -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kapte Mídia, Diagnóstico estratégico" />
+  <meta name="twitter:description" content="Solicite um diagnóstico estratégico e descubra oportunidades de posicionamento, conteúdo e campanhas para sua marca crescer com clareza." />
+  <meta name="twitter:image" content="assets/images/icon.png" />
+
+  <!-- Google Fonts (obrigatório) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- CSS crítico: evita "flash" do site antes do loader -->
+  <style>
+    :root{--primary-red:#9E0B0F}
+    html,body{background:var(--primary-red);margin:0}
+    .page-loader{position:fixed;inset:0;background:var(--primary-red);z-index:9999;display:grid;place-items:center;opacity:1;visibility:visible;pointer-events:auto}
+  </style>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="assets/css/scroll-animations.css" />
+</head>
+<body id="topo">
+  <div class="page-loader" aria-hidden="true">
+    <div class="page-loader-inner">
+      <div class="page-loader-mark" aria-hidden="true">
+        <span class="page-loader-orbit"></span>
+        <img class="page-loader-logo" src="assets/images/rocket.png" alt="" />
+      </div>
+    </div>
+  </div>
+  <!--
+    Site institucional (1 página), Kapte Mídia
+    - HTML5 semântico
+    - CSS3 moderno (Flexbox + Grid)
+    - JS puro para interações simples (scroll/menu/accordion)
+  -->
+
+  <!-- Skip link para acessibilidade -->
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- HEADER / MENU FIXO -->
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#topo" aria-label="Kapte Mídia - Início">
+        <img src="assets/images/logo.png" alt="Kapte Mídia" class="brand-logo" />
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false">
+        <span class="nav-toggle-lines" aria-hidden="true"></span>
+      </button>
+
+      <nav id="menu" class="site-nav" aria-label="Menu principal">
+        <a href="#resultados">Resultados</a>
+        <a href="#processo">Processo</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#sobre">Sobre</a>
+        <a class="nav-cta" href="#contato">Solicitar diagnóstico estratégico</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- 1) HERO SECTION -->
+    <section id="inicio" class="hero section-focus">
+      <div class="hero-bg-overlay"></div>
+
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title animate-on-scroll reveal-down">
+            Fazemos sua empresa aparecer e ter <span class="text-primary">mais clientes</span>.
+          </h1>
+          
+          <p class="hero-subtitle animate-on-scroll reveal">
+            A Kapte Mídia é uma agência de marketing que ajuda empresas a organizarem sua comunicação, fortalecerem seu posicionamento e transformarem presença digital em oportunidades reais de negócio.
+          </p>
+          <p class="hero-subtitle animate-on-scroll reveal">
+            Aqui, o marketing não começa na execução. Começa na direção certa.
+          </p>
+          
+          <div class="hero-actions animate-on-scroll reveal-group" style="transition-delay: 0.2s">
+            <a href="#contato" class="btn btn-primary icon-btn-hover">
+              Solicitar diagnóstico estratégico
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-arrow"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="#processo" class="btn btn-ghost">Ver como funciona</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-mobile-img-container animate-on-scroll reveal-scale" style="transition-delay: 0.3s">
+        <img src="assets/images/hero-mobile-static.png" alt="Imagem ilustrativa marketing" class="mobile-static-img">
+      </div>
+    </section>
+
+    <!-- 2) BLOCO DE APOIO (SEGUNDA DOBRA) -->
+    <section id="proposta-valor" class="value-section-red section-focus">
+      <div class="container">
+        <div class="value-grid animate-on-scroll reveal-group">
+          <div class="value-panel reveal-scale">
+            <div class="value-panel-media" data-value-video>
+              <video class="value-panel-video" loop playsinline preload="metadata">
+                <source src="assets/images/video2.mp4" type="video/mp4" />
+                Seu navegador não suporta vídeo.
+              </video>
+
+              <button class="value-panel-play-center" type="button" aria-label="Ativar áudio e reiniciar vídeo" data-value-video-center-play>
+                <span class="value-panel-play-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div class="value-highlights reveal">
+            <h2 class="section-title text-white">Marketing não é sobre fazer mais. <span class="text-black-highlight">É sobre fazer certo</span></h2>
+
+            <p class="section-lead text-white">
+              Marketing não é sobre fazer mais posts, investir mais dinheiro ou testar tudo ao mesmo tempo.
+              É sobre entender o negócio, definir prioridades e executar com clareza.
+            </p>
+            <p class="section-lead text-white">
+              Por isso, cada projeto da Kapte Mídia começa com análise, estratégia e direcionamento, antes de qualquer ação prática.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="red-bg-texture"></div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+    <!-- 5) PROCESSO -->
+    <section id="processo" class="processo-section section-focus" aria-label="Processo de crescimento">
+      <div class="processo-container">
+        <div class="coluna-imagem reveal-scale parallax">
+          <img src="assets/images/rocket2.png" alt="Ilustração do Processo" class="img-flutuante">
+        </div>
+
+
+        <div class="coluna-conteudo reveal-group">
+          <div class="cabecalho-processo reveal">
+            <span class="section-eyebrow">O QUE FAZEMOS</span>
+            <h2>Mais do que executar marketing, estruturamos o caminho.</h2>
+          </div>
+
+          <div class="texto-manifesto reveal-up">
+            <p>Trabalhamos com empresas que sentem que sua comunicação está confusa, desalinhada ou sem resultado claro, mesmo já investindo tempo, esforço ou dinheiro.</p>
+            <p>Nosso papel é organizar a estratégia, alinhar mensagem e criar uma presença digital que gere confiança, visibilidade e crescimento consistente.</p>
+            
+            <div class="destaque-final">
+              <div class="icon-destaque">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1.177-7.86l-2.765-2.767L7 12.431l3.823 3.823 8.177-8.178-1.06-1.06-7.117 7.118z"/>
+                </svg>
+              </div>
+              <div>
+                Marketing deixa de ser tentativa.
+                <span>Passa a ser processo.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5) SERVIÇOS -->
+    <section id="servicos" class="sessao-time section-focus section-divider section-divider--red" aria-label="Serviços">
+      <div class="container-time">
+        <div class="cabecalho-time reveal">
+          <h2>Soluções pensadas para gerar clareza, posicionamento e crescimento.</h2>
+        </div>
+
+        <div class="grid-time reveal-group" role="list">
+          <article class="card-time reveal-up" role="listitem">
+            <div class="icon-floating" aria-hidden="true">
+              <img src="assets/images/icone1.png" alt="ícone Estratégia" class="img-3d" loading="lazy">
+            </div>
+            <h3>Estratégia e posicionamento</h3>
+            <p>Análise do negócio, definição de público, mensagem e direcionamento estratégico para que o marketing faça sentido antes de ser executado.</p>
+          </article>
+
+          <article class="card-time reveal-up" role="listitem">
+            <div class="icon-floating" aria-hidden="true">
+              <img src="assets/images/icone2.png" alt="ícone Tráfego" class="img-3d" loading="lazy">
+            </div>
+            <h3>Conteúdo estratégico</h3>
+            <p>Planejamento, criação e gestão de conteúdo para redes sociais e canais digitais, com foco em autoridade, clareza e relacionamento com o público.</p>
+          </article>
+
+          <article class="card-time reveal-up" role="listitem">
+            <div class="icon-floating" aria-hidden="true">
+              <img src="assets/images/icone3.png" alt="ícone Audiovisual" class="img-3d" loading="lazy">
+            </div>
+            <h3>Comunicação visual e audiovisual</h3>
+            <p>Conteúdos visuais pensados de forma estratégica, produzidos presencialmente ou orientados remotamente, de acordo com a realidade e localização de cada cliente.</p>
+          </article>
+
+          <article class="card-time reveal-up" role="listitem">
+            <div class="icon-floating" aria-hidden="true">
+              <img src="assets/images/icone4.png" alt="ícone Copywriting" class="img-3d" loading="lazy">
+            </div>
+            <h3>Suporte a campanhas e anúncios</h3>
+            <p>Integração de campanhas de tráfego pago e estratégia de conteúdo e posicionamento, potencializando resultados para marcas que já anunciam ou desejam estruturar essa etapa.</p>
+          </article>
+        </div>
+
+        <div class="servicos-footer reveal-up">
+          <p>A Kapte Mídia não substitui estratégias existentes.<br>Ela organiza, direciona e fortalece o que já está sendo feito, ou o que precisa começar.</p>
+          <a href="https://wa.me/5511951358999?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20da%20Kapte" class="btn btn-primary" target="_blank">
+            Falar com especialista
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6) DIFERENCIAL -->
+    <section id="diferencial" class="section-focus section-divider section-divider--white" aria-label="Diferencial">
+      <div class="container diferencial-layout">
+        
+        <!-- Coluna Esquerda: Texto + Cards -->
+        <div class="diferencial-left-col reveal-group">
+          <header class="section-head reveal">
+            <h2 class="section-title">Marketing não é sobre fazer mais. É sobre fazer certo.</h2>
+            <p class="section-lead">O diferencial da Kapte Mídia está na forma como pensamos o marketing antes de executar.</p>
+          </header>
+
+          <div class="cards-sobre-wrapper">
+            <div class="card-sobre reveal-up">
+              <div class="card-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              </div>
+              <div class="card-text">
+                <h3>Cada ação tem um motivo.</h3>
+                <p>Cada estratégia tem um objetivo claro.</p>
+              </div>
+            </div>
+
+            <div class="card-sobre reveal-up">
+              <div class="card-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-icon"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </div>
+              <div class="card-text">
+                <h3>Cada conteúdo tem uma função.</h3>
+                <p>Cada conteúdo tem uma função dentro do processo, do posicionamento e conversão.</p>
+              </div>
+            </div>
+
+            <div class="card-sobre reveal-up">
+              <div class="card-icon-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-icon"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              </div>
+              <div class="card-text">
+                <h3>Método, análise e longo prazo.</h3>
+                <p>Trabalhamos com método, análise e visão de longo prazo para que o crescimento não dependa de sorte ou tentativas aleatórias.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna Direita: Vídeo -->
+        <div class="diferencial-right-col reveal-scale">
+          <div class="sobre-video" data-sobre-video>
+            <video class="sobre-video-el" preload="metadata" playsinline poster="assets/images/8.jpg">
+              <source src="assets/images/video.mp4" type="video/mp4" />
+              Seu navegador não suporta vídeo.
+            </video>
+
+            <button class="sobre-video-play" type="button" aria-label="Reproduzir vídeo" data-sobre-video-toggle>
+              <span class="sobre-video-play-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6.5) NOVA SEÇÃO: COMO TRABALHAMOS (CARDS NUMERADOS) -->
+    <section id="metodo" class="metodo-section section-focus section-divider section-divider--red" aria-label="Como trabalhamos">
+      <div class="container">
+        <header class="section-head center-text animate-on-scroll reveal">
+          <h2 class="section-title">Como trabalhamos</h2>
+        </header>
+
+        <div class="grid-metodo reveal-group">
+          <!-- Card 1 -->
+          <div class="card-metodo reveal-up">
+            <span class="metodo-num">01</span>
+            <div class="metodo-content">
+              <h3>Diagnóstico e entendimento</h3>
+              <p>Analisamos o negócio, o mercado, o momento da empresa e seus objetivos reais.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card-metodo reveal-up">
+            <span class="metodo-num">02</span>
+            <div class="metodo-content">
+              <h3>Direcionamento estratégico</h3>
+              <p>Definimos posicionamento, mensagens-chave, canais e prioridades com base na realidade do cliente.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card-metodo reveal-up">
+            <span class="metodo-num">03</span>
+            <div class="metodo-content">
+              <h3>Execução com propósito</h3>
+              <p>Colocamos a estratégia em prática por meio de conteúdo, comunicação e ações integradas.</p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="card-metodo reveal-up">
+            <span class="metodo-num">04</span>
+            <div class="metodo-content">
+              <h3>Acompanhamento e ajustes</h3>
+              <p>Analisamos resultados, ajustamos rotas e evoluímos a estratégia de forma contínua.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="metodo-footer reveal-scale">
+          <h3>Marketing é construção. Não improviso.</h3>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <!-- 3) PROVA SOCIAL -->
+    <section id="resultados" class="results-marquee-section section-focus section-divider section-divider--white">
+  <div class="container">
+    <header class="section-head center-text animate-fade-up reveal">
+      <h2 class="section-title">Prova social</h2>
+      <p class="section-lead">Empresas e profissionais que confiaram na Kapte Mídia para estruturar sua presença digital, fortalecer sua comunicação e crescer com mais clareza.</p>
+    </header>
+  </div>
+
+  <div class="marquee-wrapper reveal-group">
+    
+    <div class="marquee-track move-left">
+      <div class="marquee-group">
+        <div class="client-logo-card">
+          <img src="assets/images/reidocafe.svg" alt="Rei do Caf?" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Rei do Caf?</span>
+            <span class="client-cat">Alimentação</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/agapto.png" alt="Agapto Studio" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Agapto Studio</span>
+            <span class="client-cat">Design</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/centerlar.png" alt="Center Lar" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Center Lar</span>
+            <span class="client-cat">Varejo</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/jcsistemas.png" alt="JC Sistemas" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">JC Sistemas</span>
+            <span class="client-cat">SaaS / Tech</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/mpport.png" alt="MP Port Solutions" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">MP Port Solutions</span>
+            <span class="client-cat">Portuário</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/duoss.png" alt="DUOSS" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">DUOSS</span>
+            <span class="client-cat">Consultoria</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/nabarbearia.png" alt="Na Barbearia" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Na Barbearia</span>
+            <span class="client-cat">Barbearia</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee-group">
+        <div class="client-logo-card">
+          <img src="assets/images/reidocafe.svg" alt="Rei do Caf?" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Rei do Caf?</span>
+            <span class="client-cat">Alimentação</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/agapto.png" alt="Agapto Studio" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Agapto Studio</span>
+            <span class="client-cat">Design</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/centerlar.png" alt="Center Lar" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Center Lar</span>
+            <span class="client-cat">Varejo</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/jcsistemas.png" alt="JC Sistemas" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">JC Sistemas</span>
+            <span class="client-cat">SaaS / Tech</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/mpport.png" alt="MP Port Solutions" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">MP Port Solutions</span>
+            <span class="client-cat">Portuário</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/duoss.png" alt="DUOSS" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">DUOSS</span>
+            <span class="client-cat">Consultoria</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/nabarbearia.png" alt="Na Barbearia" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Na Barbearia</span>
+            <span class="client-cat">Barbearia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee-track move-right">
+      <div class="marquee-group">
+        <div class="client-logo-card">
+          <img src="assets/images/saude.png" alt="Perfil Saúde Corporativa" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Perfil Saúde Corporativa</span>
+            <span class="client-cat">Saúde</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/em.png" alt="Emi Rossato" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Emi Rossato</span>
+            <span class="client-cat">Moda</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/semijoias.png" alt="The Letter Semijáias" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">The Letter Semijáias</span>
+            <span class="client-cat">Acessórios</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/reidocafe.svg" alt="Rei do Caf?" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Rei do Caf?</span>
+            <span class="client-cat">Alimentação</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/agapto.png" alt="Agapto Studio" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Agapto Studio</span>
+            <span class="client-cat">Design</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/centerlar.png" alt="Center Lar" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Center Lar</span>
+            <span class="client-cat">Varejo</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/nabarbearia.png" alt="Na Barbearia" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Na Barbearia</span>
+            <span class="client-cat">Barbearia</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee-group">
+        <div class="client-logo-card">
+          <img src="assets/images/saude.png" alt="Perfil Saúde Corporativa" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Perfil Saúde Corporativa</span>
+            <span class="client-cat">Saúde</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/em.png" alt="Emi Rossato" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Emi Rossato</span>
+            <span class="client-cat">Moda</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/semijoias.png" alt="The Letter Semijáias" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">The Letter Semijáias</span>
+            <span class="client-cat">Acessórios</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/reidocafe.svg" alt="Rei do Caf?" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Rei do Caf?</span>
+            <span class="client-cat">Alimentação</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/agapto.png" alt="Agapto Studio" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Agapto Studio</span>
+            <span class="client-cat">Design</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/centerlar.png" alt="Center Lar" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Center Lar</span>
+            <span class="client-cat">Varejo</span>
+          </div>
+        </div>
+        <div class="client-logo-card">
+          <img src="assets/images/nabarbearia.png" alt="Na Barbearia" class="logo-img">
+          <div class="client-mini-meta">
+            <span class="client-name">Na Barbearia</span>
+            <span class="client-cat">Barbearia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+    <!-- 7) AVALIAÇÕES (GOOGLE-LIKE) -->
+    <section id="avaliacoes" class="reviews-section section-focus section-divider section-divider--red" aria-label="Avaliações">
+      <div class="container">
+        <header class="section-head center-text animate-on-scroll reveal">
+          <h2 class="section-title">O que nossos clientes <span class="text-primary">dizem</span></h2>
+        </header>
+
+        <div class="reviews-summary animate-on-scroll reveal">
+          <div class="reviews-score" aria-label="Nota média">5,0</div>
+          <div class="reviews-stars" aria-label="5 de 5">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
+          <p class="reviews-based">Baseado em 73 avaliações</p>
+        </div>
+
+        <div class="reviews-carousel-wrapper animate-on-scroll reveal-group" aria-hidden="false">
+          <div class="reviews-carousel" role="list" aria-label="Depoimentos">
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">J</div>
+              <div class="review-meta">
+                <p class="review-name">Juliana Peres</p>
+                <p class="review-sub">7 avaliações  um mês atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A Kapte trouxe clareza e direção. A gente saiu de posts soltos para um plano com campanha, métricas e rotina. Em poucas semanas já vimos melhoria no volume e na qualidade dos leads.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">C</div>
+              <div class="review-meta">
+                <p class="review-name">Carolina Liberatti</p>
+                <p class="review-sub">Local Guide  24 avaliações  4 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">O que mais gostei foi a execução consistente. Copy, criativos e tráfego conversando entre si. Hoje tenho previsibilidade e sei exatamente o que ajustar para subir o faturamento.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">L</div>
+              <div class="review-meta">
+                <p class="review-name">Letícia Tavares</p>
+                <p class="review-sub">4 avaliações  6 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">Excelente atendimento e uma visão muito pé no chão. Eles explicam o porquê das decisões, mostram os números e não deixam nada no escuro. Resultado: mais reuniões e mais fechamentos.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">R</div>
+              <div class="review-meta">
+                <p class="review-name">Rafael Andrade</p>
+                <p class="review-sub">11 avaliações  2 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A reestruturação do funil fez toda a diferença. Ajustamos páginas, oferta e criativos, e o custo por lead caiu. Para mim, foi um divisor de ?guas na operação.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">M</div>
+              <div class="review-meta">
+                <p class="review-name">Mariana Souza</p>
+                <p class="review-sub">3 avaliações  3 semanas atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A comunicação ficou mais profissional e com cara de marca grande. Isso refletiu direto na confiança do público e nas conversões. Recomendo muito para quem quer crescer com método.</p>
+          </article>
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">J</div>
+              <div class="review-meta">
+                <p class="review-name">Juliana Peres</p>
+                <p class="review-sub">7 avaliações  um mês atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A Kapte trouxe clareza e direção. A gente saiu de posts soltos para um plano com campanha, métricas e rotina. Em poucas semanas já vimos melhoria no volume e na qualidade dos leads.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">C</div>
+              <div class="review-meta">
+                <p class="review-name">Carolina Liberatti</p>
+                <p class="review-sub">Local Guide  24 avaliações  4 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">O que mais gostei foi a execução consistente. Copy, criativos e tráfego conversando entre si. Hoje tenho previsibilidade e sei exatamente o que ajustar para subir o faturamento.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">L</div>
+              <div class="review-meta">
+                <p class="review-name">Letícia Tavares</p>
+                <p class="review-sub">4 avaliações  6 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">Excelente atendimento e uma visão muito pé no chão. Eles explicam o porquê das decisões, mostram os números e não deixam nada no escuro. Resultado: mais reuniões e mais fechamentos.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">R</div>
+              <div class="review-meta">
+                <p class="review-name">Rafael Andrade</p>
+                <p class="review-sub">11 avaliações  2 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A reestruturação do funil fez toda a diferença. Ajustamos páginas, oferta e criativos, e o custo por lead caiu. Para mim, foi um divisor de ?guas na operação.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">M</div>
+              <div class="review-meta">
+                <p class="review-name">Mariana Souza</p>
+                <p class="review-sub">3 avaliações  3 semanas atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A comunicação ficou mais profissional e com cara de marca grande. Isso refletiu direto na confiança do público e nas conversões. Recomendo muito para quem quer crescer com método.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">J</div>
+              <div class="review-meta">
+                <p class="review-name">Juliana Peres</p>
+                <p class="review-sub">7 avaliações  um mês atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A Kapte trouxe clareza e direção. A gente saiu de posts soltos para um plano com campanha, métricas e rotina. Em poucas semanas já vimos melhoria no volume e na qualidade dos leads.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">C</div>
+              <div class="review-meta">
+                <p class="review-name">Carolina Liberatti</p>
+                <p class="review-sub">Local Guide  24 avaliações  4 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">O que mais gostei foi a execução consistente. Copy, criativos e tráfego conversando entre si. Hoje tenho previsibilidade e sei exatamente o que ajustar para subir o faturamento.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">L</div>
+              <div class="review-meta">
+                <p class="review-name">Letícia Tavares</p>
+                <p class="review-sub">4 avaliações  6 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">Excelente atendimento e uma visão muito pé no chão. Eles explicam o porquê das decisões, mostram os números e não deixam nada no escuro. Resultado: mais reuniões e mais fechamentos.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">R</div>
+              <div class="review-meta">
+                <p class="review-name">Rafael Andrade</p>
+                <p class="review-sub">11 avaliações  2 meses atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A reestruturação do funil fez toda a diferença. Ajustamos páginas, oferta e criativos, e o custo por lead caiu. Para mim, foi um divisor de ?guas na operação.</p>
+          </article>
+
+          <article class="review-card reveal" role="listitem">
+            <div class="review-top">
+              <div class="review-avatar" aria-hidden="true">M</div>
+              <div class="review-meta">
+                <p class="review-name">Mariana Souza</p>
+                <p class="review-sub">3 avaliações  3 semanas atrás</p>
+              </div>
+              <div class="review-icon-google">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              </div>
+            </div>
+            <div class="review-stars" aria-label="5 estrelas">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 17.3 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+            </div>
+            <p class="review-text">A comunicação ficou mais profissional e com cara de marca grande. Isso refletiu direto na confiança do público e nas conversões. Recomendo muito para quem quer crescer com método.</p>
+          </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8) CONTATO -->
+    <section id="contato" class="contact animate-on-scroll section-divider section-divider--white" aria-label="Contato">
+      <div class="container contact-inner">
+        <header class="section-head">
+          <h2 class="section-title">Se o seu marketing parece confuso, desalinhado ou sem direção, talvez o problema não seja esforço, seja estratégia.</h2>
+          <p class="section-lead">Vamos analisar seu momento, entender seus objetivos e construir um caminho claro para sua marca aparecer mais e conquistar mais clientes.</p>
+        </header>
+
+        <div class="contact-grid">
+          <div class="card contact-form-card">
+            <h3 class="card-title">Falar com a Kapte Mídia</h3>
+            <p class="card-text">Preencha o formulário e retornamos o mais rápido possível.</p>
+
+            <form class="form" action="#" method="post" novalidate>
+              <div class="form-row">
+                <label for="nome">Nome</label>
+                <input id="nome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required />
+              </div>
+
+              <div class="form-row">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="seuemail@empresa.com" autocomplete="email" required />
+              </div>
+
+              <div class="form-row">
+                <label for="whatsapp">WhatsApp</label>
+                <input id="whatsapp" name="whatsapp" type="tel" placeholder="(11) 99999-9999" autocomplete="tel" required />
+              </div>
+
+              <div class="form-row">
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" rows="5" placeholder="Conte rapidamente sobre seu negócio e objetivo" required></textarea>
+              </div>
+
+              <button class="btn btn-primary btn-block" type="submit">Falar com a Kapte Mídia</button>
+              <p class="form-hint">Ao enviar, você concorda em ser contatado pela Kapte Mídia.</p>
+            </form>
+          </div>
+
+          <aside class="card contact-info-card">
+            <div class="card-bg-pattern"></div>
+            <div class="card-glow-effect"></div>
+
+            <div class="info-header">
+              <div class="icon-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <h3 class="card-title">O que você recebe</h3>
+            </div>
+
+            <ul class="benefit-list">
+              <li class="benefit-item">
+                <div class="check-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span>Diagnóstico estratégico do cenário</span>
+              </li>
+              <li class="benefit-item">
+                <div class="check-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span>Direcionamento estratégico inicial</span>
+              </li>
+              <li class="benefit-item">
+                <div class="check-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <span>Próximos passos claros</span>
+              </li>
+            </ul>
+
+            <div class="info-footer">
+              <div class="divider"></div>
+              <h4 class="footer-label">Atendimento</h4>
+              <p class="footer-time">SegSex  9h18h</p>
+              <a href="mailto:contato@kaptemidia.com.br" class="footer-email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                contato@kaptemidia.com.br
+              </a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+  <div class="footer-cta-wrapper">
+    <a class="to-top-modern" href="#topo" aria-label="Voltar ao topo">
+      <span class="to-top-text">Voltar ao topo</span>
+      <div class="to-top-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col brand-col">
+        <a class="brand brand-footer" href="#topo">
+          <img src="assets/images/logo.png" alt="Kapte Mídia" class="brand-logo" />
+        </a>
+        <p class="footer-desc">
+          Marketing estratégico, conteúdo e posicionamento para empresas que querem aparecer, comunicar melhor e crescer com consistência.
+        </p>
+        
+        <div class="social-links">
+          <a href="#" aria-label="Instagram" class="social-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn" class="social-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" aria-label="WhatsApp" class="social-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col links-col">
+        <h4 class="footer-heading">Navegação</h4>
+        <ul class="footer-nav">
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#processo">Como funciona</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#sobre">Sobre nós</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col contact-col">
+        <h4 class="footer-heading">Contato</h4>
+        <ul class="footer-contact-list">
+          <li>
+            <div class="icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <a href="mailto:contato@kaptemidia.com.br">contato@kaptemidia.com.br</a>
+          </li>
+          <li>
+            <div class="icon-box">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <a href="https://wa.me/5513997668787" target="_blank" rel="noopener noreferrer">WhatsApp: +55 13 99766-8787</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copyright">© <span id="ano"></span> Kapte Mídia. Todos os direitos reservados.</p>
+      <div class="footer-legal">
+        <a href="privacidade.html">Privacidade</a>
+        <span class="sep">•</span>
+        <a href="termos.html">Termos</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- INSIGHTS MODAL (CENTRAL + BLUR) -->
+<div id="insight-modal" class="insight-modal-overlay" role="dialog" aria-modal="true">
+  <div class="insight-card">
+    <div class="modal-progress-container">
+      <div class="modal-progress-bar"></div>
+    </div>
+
+    <button class="modal-close" aria-label="Fechar insight">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div class="modal-body">
+      <div class="modal-icon-wrapper">
+        <img src="assets/images/rocket.png" alt="ícone de foguete" class="modal-icon-img" />
+      </div>
+      
+      <h3 id="modal-title" class="modal-title">Estratégia</h3>
+      <p id="modal-text" class="modal-text">Carregando insight...</p>
+      
+      <div class="modal-footer">
+        <span class="modal-tag">Insight Kapte</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- JS -->
+  <script src="js/main.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/scroll-animations.js" defer></script>
+
+  <div class="chat-widget" data-chat-widget>
+    <button class="chat-fab" type="button" aria-label="Abrir chat" aria-expanded="false" data-chat-fab>
+      <img class="chat-fab-avatar" src="assets/images/perfil.png" alt="" aria-hidden="true" loading="lazy" />
+    </button>
+
+    <span class="chat-nudge" hidden data-chat-nudge>Posso te ajudar?</span>
+
+    <div class="chat-panel" aria-label="Chat Kapta Midia" hidden data-chat-panel>
+      <header class="chat-header">
+        <div class="chat-brand">
+          <img class="chat-avatar" src="assets/images/perfil.png" alt="Kapta Midia" loading="lazy" />
+          <div class="chat-brand-text">
+            <p class="chat-title">Kapta Midia</p>
+            <p class="chat-subtitle">Tire suas dúvidas</p>
+          </div>
+        </div>
+
+        <button class="chat-close" type="button" aria-label="Fechar chat" data-chat-close>
+          <span aria-hidden="true">?</span>
+        </button>
+      </header>
+
+      <div class="chat-messages" role="log" aria-live="polite" aria-relevant="additions" data-chat-messages></div>
+
+      <form class="chat-form" data-chat-form>
+        <input class="chat-input" type="text" name="message" autocomplete="off" placeholder="Digite sua dúvida?" aria-label="Mensagem" required data-chat-input />
+        <button class="chat-send" type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

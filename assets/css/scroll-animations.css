@@ -1,0 +1,61 @@
+﻿/* Kapte Mídia é Scroll Animations (GSAP + ScrollTrigger)
+   - Somente adiciona estados iniciais; não altera layout existente.
+   - Usa transform/opacity/filter para performance.
+*/
+
+/* Estados iniciais para reveals */
+.reveal,
+.reveal-left,
+.reveal-right,
+.reveal-up,
+.reveal-down,
+.reveal-scale {
+  opacity: 0;
+  will-change: opacity, transform, filter;
+}
+
+/* Opcional: estado final ser? manipulado pelo GSAP; mas garantimos fallback */
+.reveal.is-visible,
+.reveal-left.is-visible,
+.reveal-right.is-visible,
+.reveal-up.is-visible,
+.reveal-down.is-visible,
+.reveal-scale.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Parallax: nenhuma regra extra necessária; apenas garantir will-change */
+.parallax {
+  will-change: transform;
+}
+
+/* Section focus: sutil, não altera layout */
+.section-focus {
+  transition: box-shadow 0.4s ease;
+}
+
+/* Header scrolled state (não muda layout) */
+.site-header.is-scrolled {
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  transition: box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Respeito a prefers-reduced-motion: visível imediatamente */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-up,
+  .reveal-down,
+  .reveal-scale,
+  .parallax,
+  .section-focus {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+}

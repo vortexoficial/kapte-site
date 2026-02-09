@@ -1,0 +1,498 @@
+﻿/*
+  Responsividade (obrigatória)
+  Refinada para novo Design System
+*/
+
+/* TABLET: 768px a 1199px */
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root {
+    --h1-size: 42px;
+    --h2-size: 28px;
+    --section-spacing: 80px;
+  }
+
+  section { padding: var(--section-spacing) 0; }
+
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-subtitle {
+    margin-inline: auto;
+  }
+
+  .hero-actions, .hero-badges {
+    justify-content: center;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .review-card {
+    width: calc((100% - 24px) / 2);
+    flex: 0 0 calc((100% - 24px) / 2);
+  }
+
+  /* Footer Tablet */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr; /* 2 colunas */
+    gap: 40px;
+  }
+  
+  .brand-col {
+    grid-column: span 2; /* Brand ocupa largura total no topo */
+    text-align: center;
+    align-items: center;
+  }
+  
+  .footer-desc {
+    max-width: 500px;
+  }
+
+  /* Reels Carousel Tablet */
+  .reel-card {
+    width: 200px;
+  }
+
+  .reel-thumbnail {
+    width: 200px;
+    height: 355px;
+  }
+}
+
+/* MOBILE: < 768px - OTIMIZAÇÃO UX/CONVERSÃO */
+@media (max-width: 767px) {
+  :root {
+    /* Tipografia ajustada para leitura móvel */
+    --h1-size: 30px; 
+    --h2-size: 24px;
+    --h3-size: 20px;
+    --body-size: 16px;
+    
+    /* Espaçamentos seguros */
+    --section-spacing: 64px;
+    --container-gap: 24px;
+  }
+
+  /* Melhor aproveitamento lateral */
+  .container { width: 100%; padding-inline: var(--container-gap); }
+  
+  section { padding: var(--section-spacing) 0; }
+  
+  /* Redução de espaçamento entre Resultados e Reels (Mobile) */
+  .results-marquee-section {
+    padding-bottom: 25px;
+  }
+
+
+  
+  /* HEADER / MENU */
+  .site-header { backdrop-filter: blur(16px); background: var(--overlay-darker); }
+  
+  .nav-toggle { 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    width: 48px; height: 48px; /* Touch target otimizado */
+    padding: 0;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    cursor: pointer;
+    z-index: 101; /* Fica acima do menu se necessário */
+  }
+
+  /* ícone Hamburger (Criação via CSS) */
+  .nav-toggle-lines {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: white;
+    position: relative;
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+  
+  .nav-toggle-lines::before,
+  .nav-toggle-lines::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.2s, top 0.2s;
+  }
+  
+  .nav-toggle-lines::before { top: -6px; }
+  .nav-toggle-lines::after { top: 6px; }
+
+  /* Estado Ativo (X) */
+  .nav-toggle[aria-expanded="true"] .nav-toggle-lines { background: transparent; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-lines::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-lines::after { top: 0; transform: rotate(-45deg); }
+
+  /* EFEITO DE FOCO TOTAL NO MENU (Mobile) */
+  /* Quando o menu abre, aplicamos blur + escurecimento em tudo exceto header */
+  
+  /* 1. Escurecimento via overlay no header (cobre a tela) */
+  .site-header:has(.site-nav.is-open)::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7); /* Apenas cor escura */
+    z-index: 90;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  /* 2. Desfoque real nos elementos de conteúdo (Garante o efeito) */
+  body.menu-open main,
+  body.menu-open footer {
+    filter: blur(8px);
+    transition: filter 0.3s ease;
+    pointer-events: none; /* Previne cliques no fundo */
+  }
+  
+  /* Garante que o Logo (parte do menu normal) fique visível e clicável acima do overlay */
+  .site-header:has(.site-nav.is-open) .brand {
+    position: relative;
+    z-index: 101;
+  }
+
+  /* MENU FLUTUANTE "BALÃO" */
+  .site-nav {
+    position: absolute;
+    top: 90px; /* Abaixo do header */
+    right: 20px; /* Margem da borda direta */
+    width: calc(100% - 40px); /* Largura fluida com margens */
+    max-width: 380px; /* Não fica gigante em telas maiores que mobile */
+    
+    /* Estilo "Balão de Vidro" */
+    background: rgba(20, 20, 22, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+    border-radius: 20px;
+    
+    display: none;
+    flex-direction: column;
+    padding: 12px; /* Padding interno do "card" */
+    gap: 4px; /* Espaço entre itens */
+    
+    z-index: 100;
+    transform-origin: top right;
+  }
+
+  .site-nav.is-open {
+    display: flex;
+    animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes popIn { 
+    from { opacity: 0; transform: scale(0.9) translateY(-20px); } 
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  
+  /* Triângulo indicador do "Balão" (Opcional, estilo popover) */
+  .site-nav.is-open::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    background: rgba(15, 15, 17, 0.9);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-left: 1px solid rgba(255,255,255,0.1);
+    transform: rotate(45deg);
+  }
+
+  .site-nav a {
+    font-size: 16px;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border-bottom: none; /* Remove linhas antigas */
+    width: 100%;
+    text-align: left;
+    color: var(--text-secondary);
+    transition: background 0.2s, color 0.2s;
+  }
+  
+  .site-nav a:hover {
+    background: rgba(255,255,255,0.08); /* Hover sutil dentro do balão */
+    color: white;
+  }
+
+  .nav-cta {
+    margin-top: 8px; /* Separação do botão */
+    background: var(--primary-red) !important;
+    text-align: center !important;
+    justify-content: center;
+    color: white !important;
+  }
+  
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* HERO */
+  .hero {
+    padding: 24px 0 0; /* Aproxima do topo no mobile */
+  }
+
+  /* Aproxima conteúdo do hero da imagem (mobile) */
+  .hero .container {
+    padding-top: 14px;
+    padding-bottom: 12px;
+  }
+
+  .hero-content {
+    margin: 0 auto 16px;
+  }
+
+  .hero-mobile-img-container {
+    max-width: min(420px, 92vw);
+    margin-top: -6px;
+    margin-bottom: -8px;
+  }
+
+  /* AVALIAÇÕES */
+  .review-card {
+    width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: clamp(34px, 9vw, 40px);
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  
+  .hero-subtitle {
+    margin-inline: auto;
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    min-height: 56px; /* ?rea de toque segura */
+    font-size: 16px;
+  }
+
+  .hero-badges {
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .hero-panel { 
+    display: block;
+    margin-top: 40px;
+    width: 100%;
+  }
+  
+  .panel-card {
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .panel-kicker {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+    opacity: 0.8;
+  }
+  
+  .panel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .panel-list li {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border-soft);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  
+  .panel-footnote {
+    text-align: center;
+    font-size: 11px;
+    opacity: 0.5;
+  }
+
+  /* GERAL - CONTEÚDO */
+  .section-lead {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  /* Remove hover effects complexos */
+  .card:hover, .service:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border-soft);
+  }
+
+  /* GRIDS EM COLUNA ?NICA */
+  .results-grid, 
+  .services-grid, 
+  .about-grid, 
+  .contact-grid { 
+    grid-template-columns: 1fr; 
+    gap: 24px; 
+  }
+
+  /* CARDS MOBILE */
+  .card {
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra mais leve */
+  }
+
+  /* ACCORDION MOBILE */
+  .accordion-trigger {
+    padding: 20px;
+    min-height: 60px; /* Toque seguro */
+  }
+  
+  .accordion-title { font-size: 16px; text-align: left; }
+  
+  .accordion-panel { padding-inline: 20px; }
+
+  /* FORMULÁRIO MOBILE */
+  .form-row { gap: 8px; }
+
+  label { font-size: 14px; margin-bottom: 4px; display: block; }
+  
+  input, textarea {
+    min-height: 52px; /* Input alto para dedo */
+    font-size: 16px; /* Evita zoom no iOS */
+    padding: 12px 16px;
+  }
+  
+  textarea { min-height: 120px; }
+
+  .btn-block { min-height: 56px; font-size: 16px; }
+
+  /* FOOTER MOBILE */
+  .site-footer {
+    padding-top: 60px; /* Mais espaço para o botão flutuante resp. */
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  .footer-col.brand-col {
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .footer-col.links-col,
+  .footer-col.contact-col {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer-desc {
+    margin: 0;
+  }
+
+  .social-links {
+    margin-top: 8px;
+    justify-content: flex-start;
+  }
+  
+  .footer-nav, .footer-contact-list {
+    align-items: flex-start;
+  }
+
+  .footer-contact-list li {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  /* Ajuste no botão flutuante para mobile */
+  .to-top-text {
+    display: inline;
+  }
+
+  .to-top-modern {
+    width: auto;
+    height: auto;
+    padding: 6px 6px 6px 16px;
+    border-radius: 999px;
+    gap: 10px;
+    font-size: 10px;
+  }
+
+  .to-top-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Reels Carousel Mobile */
+  .reels-track {
+    animation-duration: 40s; /* Mais rápido no mobile */
+  }
+
+  .reel-card {
+    width: 220px;
+  }
+
+  .reel-thumbnail {
+    width: 220px;
+    height: 390px;
+  }
+
+  .reel-caption {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A0A0B"/>
+      <stop offset="1" stop-color="#111113"/>
+    </linearGradient>
+    <radialGradient id="r" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(420 220) rotate(28) scale(680 420)">
+      <stop stop-color="#9E0B0F" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#9E0B0F" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" stroke="#FFFFFF" stroke-opacity="0.05"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <rect width="1600" height="900" fill="url(#r)"/>
+  <path d="M140 640C320 520 460 520 680 600C920 690 1120 640 1400 480" stroke="#9E0B0F" stroke-opacity="0.25" stroke-width="2"/>
+  <path d="M220 720C410 600 520 590 760 650C980 706 1120 690 1320 590" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="2"/>
+  <circle cx="1220" cy="210" r="110" stroke="#9E0B0F" stroke-opacity="0.18" stroke-width="2"/>
+  <circle cx="1220" cy="210" r="170" stroke="#FFFFFF" stroke-opacity="0.06" stroke-width="2"/>
+</svg>

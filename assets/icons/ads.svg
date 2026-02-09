@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <title>Tráfego Pago</title>
+  <path d="M6 9.5C6 8.67157 6.67157 8 7.5 8H20.5C21.3284 8 22 8.67157 22 9.5V18.5C22 19.3284 21.3284 20 20.5 20H7.5C6.67157 20 6 19.3284 6 18.5V9.5Z" stroke="#9E0B0F" stroke-width="2" opacity="0.9"/>
+  <path d="M11.2 17V11.6H13.4C14.9 11.6 15.8 12.4 15.8 13.7C15.8 15 14.9 15.8 13.4 15.8H11.2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18 17V11" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+</svg>
