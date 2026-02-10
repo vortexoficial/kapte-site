@@ -1,73 +1,124 @@
 {
-  "version": 1,
+  "version": 2,
   "settings": {
     "maxHistoryMessages": 12,
-    "maxContextChars": 12000,
-    "maxOutputTokens": 160,
-    "maxOutputChars": 420,
-    "maxEstimatedPromptTokens": 3200,
-    "maxSessionEstimatedTokens": 2400,
-    "tokenCharRatio": 4
+    "maxOutputChars": 520
   },
-  "prompts": {
-    "baseSystem": "Você é o atendente virtual (balconista) do site da Kapte Mídia.",
-    "tone": "Fale em pt-BR, de forma humanizada, curta e direta.",
-    "rules": [
-      "Cumprimente de forma humanizada (bom dia/boa tarde/boa noite, tudo bem?) e ofereça ajuda.",
-      "Seu papel é: (1) ajudar o visitante a entrar em contato e (2) dar 1 dica/insight curto.",
-      "Se faltar informação, faça 1–3 perguntas para qualificar.",
-      "Pergunta padrão: 'Gostaria de um diagnóstico gratuito?'. Se a pessoa responder que sim, encaminhe para o WhatsApp.",
-      "Não use Markdown (nada de **asteriscos**, _, listas com marcadores ou `código`).",
-      "Não invente preços, resultados garantidos, prazos fixos ou cases que não estejam no contexto.",
-      "Se o assunto pedir atendimento além do básico (diagnóstico, análise, estratégia, proposta, orçamento, contratação), encaminhe pro WhatsApp e não aprofunde.",
-      "Se perguntarem sobre vídeos, responda só com base no que estiver no contexto; se não tiver, peça o assunto do vídeo."
+  "whatsapp": {
+    "number": "5513997668787",
+    "defaultText": "Olá! Quero um diagnóstico estratégico gratuito. Pode me orientar?",
+    "confirmKeywords": ["sim", "s", "claro", "ok", "pode", "bora", "vamos", "manda", "quero"],
+    "routeKeywords": [
+      "diagnostico",
+      "diagnóstico",
+      "avaliacao",
+      "avaliação",
+      "analise",
+      "análise",
+      "consultoria",
+      "auditoria",
+      "mentoria",
+      "proposta",
+      "briefing",
+      "reuniao",
+      "reunião",
+      "call",
+      "agendar",
+      "orcamento",
+      "orçamento",
+      "preco",
+      "preço",
+      "quanto custa",
+      "valor",
+      "contratar",
+      "campanha",
+      "gestao",
+      "gestão",
+      "anuncio",
+      "anúncio",
+      "trafego",
+      "tráfego",
+      "meta ads",
+      "google ads",
+      "meu instagram",
+      "meu perfil",
+      "meu negocio",
+      "meu negócio"
     ]
   },
-  "actions": {
-    "whatsapp": {
-      "number": "5513997668787",
-      "routeKeywords": [
-        "diagnostico",
-        "avaliacao",
-        "analise",
-        "consultoria",
-        "auditoria",
-        "mentoria",
-        "proposta",
-        "briefing",
-        "reuniao",
-        "call",
-        "agendar",
-        "orcamento",
-        "preco",
-        "quanto custa",
-        "valor",
-        "contratar",
-        "fechar com",
-        "campanha",
-        "gestao",
-        "meu instagram",
-        "meu perfil",
-        "meu negocio"
-      ],
-      "confirmKeywords": ["sim", "pode", "claro", "ok", "bora", "vamos", "manda", "quero", "pode me passar"]
-    }
-  },
-  "cannedReplies": [
+  "faq": [
     {
-      "whenAny": ["whatsapp", "contato", "telefone"],
+      "id": "menu",
+      "whenAny": ["menu", "opcoes", "opções", "ajuda", "comandos"],
+      "reply": "Posso te ajudar com: diagnóstico gratuito, serviços, prazos/como funciona, conteúdo/Instagram, tráfego/anúncios e contato no WhatsApp. Qual desses você quer agora?",
+      "action": "none"
+    },
+    {
+      "id": "contato",
+      "whenAny": ["whatsapp", "contato", "telefone", "falar com", "atendente", "especialista"],
       "reply": "Você pode falar com a Kapte Mídia direto no WhatsApp: {WHATSAPP_LINK}. Quer que eu te ajude a escrever a mensagem?",
-      "action": "whatsapp"
+      "action": "ask_compose"
     },
     {
-      "whenAny": ["quanto custa", "preco", "valor"],
-      "reply": "O valor depende do objetivo e do que você precisa (tráfego, conteúdo, gestão, etc.). Se você me disser seu nicho e a meta, eu já te direciono; ou se preferir, chama no WhatsApp: {WHATSAPP_LINK}. Qual é sua meta principal hoje?",
-      "action": "whatsapp"
+      "id": "diagnostico",
+      "whenAny": ["diagnostico", "diagnóstico", "avaliacao", "avaliação", "analise", "análise"],
+      "reply": "Sim! A gente faz diagnóstico estratégico gratuito para organizar prioridades e direcionar próximos passos. Quer que eu te encaminhe pro WhatsApp agora?",
+      "action": "route_whatsapp"
     },
     {
-      "whenAny": ["em quanto tempo", "quando vejo resultado", "resultado"],
-      "reply": "Depende do ponto de partida e do canal (orgânico vs. tráfego), mas dá pra ter sinais em semanas e consistência em alguns meses. Quer que eu entenda seu nicho e se você já anuncia ou ainda não?",
+      "id": "servicos",
+      "whenAny": ["servicos", "serviços", "o que voces fazem", "o que vocês fazem", "solucoes", "soluções"],
+      "reply": "A Kapte organiza estratégia e posicionamento, conteúdo estratégico, comunicação visual/audiovisual e suporte a campanhas/anúncios. Qual área você quer melhorar primeiro?",
+      "action": "none"
+    },
+    {
+      "id": "estrategia",
+      "whenAny": ["posicionamento", "estrategia", "estratégia", "marca", "branding", "publico", "público"],
+      "reply": "Estratégia e posicionamento servem pra deixar claro: pra quem você fala, o que promete e por que confiar em você. Qual é seu nicho e o principal diferencial hoje?",
+      "action": "none"
+    },
+    {
+      "id": "conteudo",
+      "whenAny": ["conteudo", "conteúdo", "instagram", "reels", "post", "stories", "calendario", "calendário"],
+      "reply": "Conteúdo estratégico não é postar mais, é postar com direção: promessa clara + prova + constância. Você quer atrair novos seguidores, gerar leads ou vender direto?",
+      "action": "none"
+    },
+    {
+      "id": "trafego",
+      "whenAny": ["trafego", "tráfego", "anuncio", "anúncio", "ads", "meta ads", "google ads", "campanha"],
+      "reply": "Tráfego funciona melhor quando a oferta e a mensagem já estão claras; senão vira só custo. Você quer leads (WhatsApp/form) ou venda imediata?",
+      "action": "none"
+    },
+    {
+      "id": "audiovisual",
+      "whenAny": ["video", "vídeo", "filmagem", "criacao", "criação", "design", "identidade visual"],
+      "reply": "A parte visual/audiovisual entra pra reforçar autoridade e deixar sua mensagem mais clara e confiável. Você já tem identidade visual e materiais atuais ou começa do zero?",
+      "action": "none"
+    },
+    {
+      "id": "prazo",
+      "whenAny": ["prazo", "tempo", "quando", "resultado", "em quanto tempo"],
+      "reply": "O tempo varia conforme o ponto de partida e o canal (orgânico vs anúncios), mas sinais podem aparecer em semanas e consistência em alguns meses. Você já posta/anuncia hoje ou está começando agora?",
+      "action": "none"
+    },
+    {
+      "id": "preco",
+      "whenAny": ["preco", "preço", "valor", "quanto custa", "investimento", "orcamento", "orçamento"],
+      "reply": "O investimento depende do objetivo e do escopo (conteúdo, anúncios, estratégia etc.). Se você me disser seu nicho e meta, eu te direciono; ou posso te encaminhar pro WhatsApp agora. Qual é sua meta principal?",
+      "action": "route_whatsapp"
+    },
+    {
+      "id": "local",
+      "whenAny": ["presencial", "remoto", "online", "cidade", "atendem onde", "atendem quais"],
+      "reply": "Dá pra trabalhar de forma remota e também adaptar produção conforme a realidade e localização do cliente. Você está em qual cidade e qual serviço procura?",
+      "action": "none"
+    },
+    {
+      "id": "privacidade",
+      "whenAny": ["lgpd", "privacidade", "dados", "politica", "política", "termos"],
+      "reply": "As páginas de Privacidade e Termos estão no site e explicam uso, segurança e retenção de dados. Você quer o link ou sua dúvida é sobre coleta/contato?",
       "action": "none"
     }
-  ]
+  ],
+  "fallback": "Me diz rapidinho o que você quer melhorar: Instagram/conteúdo, tráfego/anúncios, posicionamento, ou falar com um especialista no WhatsApp?"
 }
