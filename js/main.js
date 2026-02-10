@@ -937,8 +937,9 @@
               // Se o usuário já enviou mensagem enquanto a config carregava, não injeta o welcome.
               if (panel.hidden || chatHistory.length !== 0) return;
 
-              const whatsappNumber = config?.actions?.whatsapp?.number || DEFAULT_WHATSAPP_NUMBER;
-              const whatsappLink = buildWhatsAppLink(whatsappNumber);
+              const whatsappNumber = config?.whatsapp?.number || DEFAULT_WHATSAPP_NUMBER;
+              const defaultText = config?.whatsapp?.defaultText || DEFAULT_CHAT_CONFIG.whatsapp.defaultText;
+              const whatsappLink = buildWhatsAppLink(whatsappNumber, defaultText);
               pendingAction = { type: 'diagnostic', link: whatsappLink };
 
               const welcome = buildWelcomeMessage();
@@ -947,7 +948,7 @@
             })
             .catch(() => {
               if (panel.hidden || chatHistory.length !== 0) return;
-              pendingAction = { type: 'diagnostic', link: DEFAULT_WHATSAPP_LINK };
+              pendingAction = { type: 'diagnostic', link: buildWhatsAppLink(DEFAULT_WHATSAPP_NUMBER, DEFAULT_CHAT_CONFIG.whatsapp.defaultText) };
               const welcome = buildWelcomeMessage();
               appendMessage('assistant', welcome);
               pushHistory('assistant', welcome);
@@ -1021,77 +1022,142 @@
     }
 
     // =============================
-    // Groq (100% client-side)
-    // ATENÇÃO: em hospedagem estática, qualquer chave lida via fetch() fica pública.
+    // Robô (sem IA)
+    // - 100% determinístico (FAQ + fluxos)
+    // - Sem chamadas externas (sem /api/chat, sem Groq, sem chaves)
     // =============================
-    const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
-    const SERVER_CHAT_ENDPOINT = '/api/chat';
-    const DEFAULT_MODEL = 'llama-3.1-8b-instant';
-
     const DEFAULT_WHATSAPP_NUMBER = '5513997668787';
     const DEFAULT_WHATSAPP_LINK = `https://wa.me/${DEFAULT_WHATSAPP_NUMBER}`;
 
     const DEFAULT_CHAT_CONFIG = {
-      version: 1,
+      version: 2,
       settings: {
         maxHistoryMessages: 12,
-        maxContextChars: 12000,
-        maxOutputTokens: 160,
-        maxOutputChars: 420,
-        maxEstimatedPromptTokens: 3200,
-        maxSessionEstimatedTokens: 2400,
-        tokenCharRatio: 4,
+        maxOutputChars: 520,
       },
-      prompts: {
-        baseSystem: 'Você é o atendente virtual (balconista) do site da Kapte Mídia.',
-        tone: 'Fale em pt-BR, de forma humana, curta e direta.',
-        rules: [
-          'Seu papel é: (1) ajudar o visitante a entrar em contato e (2) dar 1 dica/insight curto.',
-          'Se faltar informação, faça 1–3 perguntas para qualificar.',
-          'Formato obrigatório: no máximo 2 frases de conteúdo + 1 pergunta no final (sempre).',
-          'Não use Markdown (nada de **asteriscos**, _, listas com marcadores ou `código`).',
-          'Não invente preços, resultados garantidos, prazos fixos ou cases que não estejam no contexto.',
-          'Se o assunto pedir atendimento além do básico (diagnóstico, análise, estratégia, proposta, orçamento, contratação), encaminhe pro WhatsApp e não aprofunde.',
-          'Se perguntarem sobre vídeos, responda só com base no que estiver no contexto; se não tiver, peça o assunto do vídeo.',
+      whatsapp: {
+        number: DEFAULT_WHATSAPP_NUMBER,
+        confirmKeywords: ['sim', 's', 'claro', 'ok', 'pode', 'bora', 'vamos', 'manda', 'quero'],
+        routeKeywords: [
+          'diagnostico',
+          'avalia',
+          'analise',
+          'consultoria',
+          'auditoria',
+          'mentoria',
+          'proposta',
+          'briefing',
+          'reuniao',
+          'call',
+          'agendar',
+          'orcamento',
+          'preco',
+          'quanto custa',
+          'valor',
+          'contratar',
+          'fechar com',
+          'campanha',
+          'gestao',
+          'gestão',
+          'anuncio',
+          'anúncio',
+          'trafego',
+          'tráfego',
+          'meu instagram',
+          'meu perfil',
+          'meu negocio',
+          'meu negócio',
         ],
+        defaultText: 'Olá! Quero um diagnóstico estratégico gratuito. Pode me orientar?'
       },
-      actions: {
-        whatsapp: {
-          number: DEFAULT_WHATSAPP_NUMBER,
-          routeKeywords: [
-            'diagnostico',
-            'avaliacao',
-            'analise',
-            'consultoria',
-            'auditoria',
-            'mentoria',
-            'proposta',
-            'briefing',
-            'reuniao',
-            'call',
-            'agendar',
-            'orcamento',
-            'preco',
-            'quanto custa',
-            'valor',
-            'contratar',
-            'fechar com',
-            'campanha',
-            'gestao',
-            'meu instagram',
-            'meu perfil',
-            'meu negocio',
-          ],
-          confirmKeywords: ['sim', 'pode', 'claro', 'ok', 'bora', 'vamos', 'manda', 'quero', 'pode me passar'],
-        },
-      },
-      cannedReplies: [
+      faq: [
         {
-          whenAny: ['whatsapp', 'contato', 'telefone'],
-          reply: 'Você pode falar com a Kapte Mídia direto no WhatsApp: {WHATSAPP_LINK}. Quer que eu te ajude a escrever a mensagem?',
-          action: 'whatsapp',
+          id: 'menu',
+          whenAny: ['menu', 'opcoes', 'opções', 'ajuda', 'comandos'],
+          reply:
+            'Posso te ajudar com: diagnóstico gratuito, serviços, prazos/como funciona, conteúdo/Instagram, tráfego/anúncios e contato no WhatsApp. Qual desses você quer agora?',
+          action: 'none'
         },
+        {
+          id: 'contato',
+          whenAny: ['whatsapp', 'contato', 'telefone', 'falar com', 'atendente', 'especialista'],
+          reply:
+            'Você pode falar com a Kapte Mídia direto no WhatsApp: {WHATSAPP_LINK}. Quer que eu te ajude a escrever a mensagem?',
+          action: 'ask_compose'
+        },
+        {
+          id: 'diagnostico',
+          whenAny: ['diagnostico', 'diagnóstico', 'avaliacao', 'avaliação', 'analise', 'análise'],
+          reply:
+            'Sim! A gente faz diagnóstico estratégico gratuito para organizar prioridades e direcionar próximos passos. Quer que eu te encaminhe pro WhatsApp agora?',
+          action: 'route_whatsapp'
+        },
+        {
+          id: 'servicos',
+          whenAny: ['servicos', 'serviços', 'o que voces fazem', 'o que vocês fazem', 'solucoes', 'soluções'],
+          reply:
+            'A Kapte organiza estratégia e posicionamento, conteúdo estratégico, comunicação visual/audiovisual e suporte a campanhas/anúncios. Qual área você quer melhorar primeiro?',
+          action: 'none'
+        },
+        {
+          id: 'estrategia',
+          whenAny: ['posicionamento', 'estrategia', 'estratégia', 'marca', 'branding', 'publico', 'público'],
+          reply:
+            'Estratégia e posicionamento servem pra deixar claro: pra quem você fala, o que promete e por que confiar em você. Qual é seu nicho e o principal diferencial hoje?',
+          action: 'none'
+        },
+        {
+          id: 'conteudo',
+          whenAny: ['conteudo', 'conteúdo', 'instagram', 'reels', 'post', 'stories', 'calendario', 'calendário'],
+          reply:
+            'Conteúdo estratégico não é postar mais, é postar com direção: promessa clara + prova + constância. Você quer atrair novos seguidores, gerar leads ou vender direto?',
+          action: 'none'
+        },
+        {
+          id: 'trafego',
+          whenAny: ['trafego', 'tráfego', 'anuncio', 'anúncio', 'ads', 'meta ads', 'google ads', 'campanha'],
+          reply:
+            'Tráfego funciona melhor quando a oferta e a mensagem já estão claras; senão vira só custo. Você quer leads (WhatsApp/form) ou venda imediata?',
+          action: 'none'
+        },
+        {
+          id: 'audiovisual',
+          whenAny: ['video', 'vídeo', 'filmagem', 'criacao', 'criação', 'design', 'identidade visual'],
+          reply:
+            'A parte visual/audiovisual entra pra reforçar autoridade e deixar sua mensagem mais clara e confiável. Você já tem identidade visual e materiais atuais ou começa do zero?',
+          action: 'none'
+        },
+        {
+          id: 'prazo',
+          whenAny: ['prazo', 'tempo', 'quando', 'resultado', 'em quanto tempo'],
+          reply:
+            'O tempo varia conforme o ponto de partida e o canal (orgânico vs anúncios), mas sinais podem aparecer em semanas e consistência em alguns meses. Você já posta/anuncia hoje ou está começando agora?',
+          action: 'none'
+        },
+        {
+          id: 'preco',
+          whenAny: ['preco', 'preço', 'valor', 'quanto custa', 'investimento', 'orcamento', 'orçamento'],
+          reply:
+            'O investimento depende do objetivo e do escopo (conteúdo, anúncios, estratégia etc.). Se você me disser seu nicho e meta, eu te direciono; ou posso te encaminhar pro WhatsApp agora. Qual é sua meta principal?',
+          action: 'route_whatsapp'
+        },
+        {
+          id: 'local',
+          whenAny: ['presencial', 'remoto', 'online', 'cidade', 'atendem onde', 'atendem quais'],
+          reply:
+            'Dá pra trabalhar de forma remota e também adaptar produção conforme a realidade e localização do cliente. Você está em qual cidade e qual serviço procura?',
+          action: 'none'
+        },
+        {
+          id: 'privacidade',
+          whenAny: ['lgpd', 'privacidade', 'dados', 'politica', 'política', 'termos'],
+          reply:
+            'As páginas de Privacidade e Termos estão no site e explicam uso, segurança e retenção de dados. Você quer o link ou sua dúvida é sobre coleta/contato?',
+          action: 'none'
+        }
       ],
+      fallback:
+        'Me diz rapidinho o que você quer melhorar: Instagram/conteúdo, tráfego/anúncios, posicionamento, ou falar com um especialista no WhatsApp?'
     };
 
     function clampInt(n, min, max, fallback) {
@@ -1104,20 +1170,10 @@
       const out = JSON.parse(JSON.stringify(base));
       if (!incoming || typeof incoming !== 'object') return out;
 
-      if (incoming.settings && typeof incoming.settings === 'object') {
-        out.settings = Object.assign({}, out.settings, incoming.settings);
-      }
-      if (incoming.prompts && typeof incoming.prompts === 'object') {
-        out.prompts = Object.assign({}, out.prompts, incoming.prompts);
-        if (Array.isArray(incoming.prompts.rules)) out.prompts.rules = incoming.prompts.rules.slice();
-      }
-      if (incoming.actions && typeof incoming.actions === 'object') {
-        out.actions = Object.assign({}, out.actions, incoming.actions);
-        if (incoming.actions.whatsapp && typeof incoming.actions.whatsapp === 'object') {
-          out.actions.whatsapp = Object.assign({}, out.actions.whatsapp, incoming.actions.whatsapp);
-        }
-      }
-      if (Array.isArray(incoming.cannedReplies)) out.cannedReplies = incoming.cannedReplies.slice();
+      if (incoming.settings && typeof incoming.settings === 'object') out.settings = Object.assign({}, out.settings, incoming.settings);
+      if (incoming.whatsapp && typeof incoming.whatsapp === 'object') out.whatsapp = Object.assign({}, out.whatsapp, incoming.whatsapp);
+      if (Array.isArray(incoming.faq)) out.faq = incoming.faq.slice();
+      if (typeof incoming.fallback === 'string') out.fallback = incoming.fallback;
       return out;
     }
 
@@ -1138,19 +1194,17 @@
           const merged = mergeChatConfig(DEFAULT_CHAT_CONFIG, remote);
 
           merged.settings.maxHistoryMessages = clampInt(merged.settings.maxHistoryMessages, 2, 30, 12);
-          merged.settings.maxContextChars = clampInt(merged.settings.maxContextChars, 0, 40000, 12000);
-          merged.settings.maxOutputTokens = clampInt(merged.settings.maxOutputTokens, 32, 1024, 160);
-          merged.settings.maxOutputChars = clampInt(merged.settings.maxOutputChars, 220, 900, 420);
-          merged.settings.maxEstimatedPromptTokens = clampInt(merged.settings.maxEstimatedPromptTokens, 600, 12000, 3200);
-          merged.settings.maxSessionEstimatedTokens = clampInt(merged.settings.maxSessionEstimatedTokens, 400, 60000, 2400);
-          merged.settings.tokenCharRatio = clampInt(merged.settings.tokenCharRatio, 2, 8, 4);
+          merged.settings.maxOutputChars = clampInt(merged.settings.maxOutputChars, 220, 900, 520);
 
-          // Normaliza WhatsApp
-          if (!merged.actions) merged.actions = {};
-          if (!merged.actions.whatsapp) merged.actions.whatsapp = {};
-          merged.actions.whatsapp.number = String(merged.actions.whatsapp.number || DEFAULT_WHATSAPP_NUMBER).trim() || DEFAULT_WHATSAPP_NUMBER;
-          if (!Array.isArray(merged.actions.whatsapp.routeKeywords)) merged.actions.whatsapp.routeKeywords = DEFAULT_CHAT_CONFIG.actions.whatsapp.routeKeywords.slice();
-          if (!Array.isArray(merged.actions.whatsapp.confirmKeywords)) merged.actions.whatsapp.confirmKeywords = DEFAULT_CHAT_CONFIG.actions.whatsapp.confirmKeywords.slice();
+          if (!merged.whatsapp) merged.whatsapp = {};
+          merged.whatsapp.number = String(merged.whatsapp.number || DEFAULT_WHATSAPP_NUMBER).trim() || DEFAULT_WHATSAPP_NUMBER;
+          if (!Array.isArray(merged.whatsapp.routeKeywords)) merged.whatsapp.routeKeywords = DEFAULT_CHAT_CONFIG.whatsapp.routeKeywords.slice();
+          if (!Array.isArray(merged.whatsapp.confirmKeywords)) merged.whatsapp.confirmKeywords = DEFAULT_CHAT_CONFIG.whatsapp.confirmKeywords.slice();
+          merged.whatsapp.defaultText = String(merged.whatsapp.defaultText || DEFAULT_CHAT_CONFIG.whatsapp.defaultText || '').trim();
+          if (!merged.whatsapp.defaultText) merged.whatsapp.defaultText = DEFAULT_CHAT_CONFIG.whatsapp.defaultText;
+
+          if (!Array.isArray(merged.faq)) merged.faq = DEFAULT_CHAT_CONFIG.faq.slice();
+          if (typeof merged.fallback !== 'string' || !merged.fallback.trim()) merged.fallback = DEFAULT_CHAT_CONFIG.fallback;
 
           maxHistoryMessages = merged.settings.maxHistoryMessages;
           return merged;
@@ -1161,75 +1215,6 @@
 
     // Carrega config em background (sem bloquear o 1? clique)
     loadChatConfig().catch(() => {});
-
-    let groqEnvPromise = null;
-
-    function parseEnvText(rawText) {
-      const out = {};
-      const text = String(rawText || '');
-      const lines = text.split(/\r?\n/);
-
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed || trimmed.startsWith('#')) continue;
-        const eq = trimmed.indexOf('=');
-        if (eq === -1) continue;
-        const key = trimmed.slice(0, eq).trim();
-        let value = trimmed.slice(eq + 1).trim();
-        if (!key) continue;
-        if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-          value = value.slice(1, -1);
-        }
-        out[key] = value;
-      }
-
-      return out;
-    }
-
-    async function fetchEnvText() {
-      const candidates = ['env.txt', './env.txt', './.env', '.env'];
-      let lastErr = null;
-
-      for (const url of candidates) {
-        try {
-          const res = await fetch(url, { cache: 'no-store' });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return await res.text();
-        } catch (err) {
-          lastErr = err;
-        }
-      }
-
-      const msg = lastErr && lastErr.message ? String(lastErr.message) : '';
-      throw new Error(msg ? `Não consegui ler env.txt/.env (${msg}).` : 'Não consegui ler env.txt/.env.');
-    }
-
-    async function loadGroqEnv() {
-      if (!groqEnvPromise) {
-        groqEnvPromise = (async () => {
-          const envText = await fetchEnvText();
-          const env = parseEnvText(envText);
-          const apiKey = String(env.GROQ_API_KEY || '').trim();
-          const model = String(env.GROQ_MODEL || '').trim();
-          if (!apiKey) throw new Error('GROQ_API_KEY não encontrada no env.txt/.env.');
-          return { apiKey, model };
-        })();
-      }
-      return groqEnvPromise;
-    }
-
-    function normalizeGroqModel(requestedModel) {
-      const fallbackDefault = DEFAULT_MODEL;
-      const model = String(requestedModel || '').trim();
-      if (!model) return fallbackDefault;
-
-      const deprecatedToSupported = {
-        'llama3-8b-8192': fallbackDefault,
-        'llama3-70b-8192': fallbackDefault,
-      };
-
-      return deprecatedToSupported[model] || model;
-    }
 
     function normalizeForIntent(text) {
       return String(text || '')
@@ -1257,79 +1242,6 @@
       return false;
     }
 
-    function estimateTokensFromText(text, tokenCharRatio) {
-      const ratio = clampInt(tokenCharRatio, 2, 8, 4);
-      const len = String(text || '').length;
-      return Math.max(1, Math.ceil(len / ratio));
-    }
-
-    function estimateTokensFromMessages(msgs, tokenCharRatio) {
-      let sum = 0;
-      for (const m of msgs || []) {
-        if (!m || typeof m !== 'object') continue;
-        sum += estimateTokensFromText(m.role || '', tokenCharRatio);
-        sum += estimateTokensFromText(m.content || '', tokenCharRatio);
-      }
-      return sum;
-    }
-
-    async function fetchOptionalText(url) {
-      try {
-        const res = await fetch(url, { cache: 'no-store' });
-        if (!res.ok) return '';
-        return await res.text();
-      } catch (_) {
-        return '';
-      }
-    }
-
-    function stripHtmlToText(html) {
-      let out = String(html || '');
-      out = out.replace(/<script\b[\s\S]*?<\/script>/gi, ' ');
-      out = out.replace(/<style\b[\s\S]*?<\/style>/gi, ' ');
-      out = out.replace(/<[^>]+>/g, ' ');
-      out = out
-        .replaceAll('&nbsp;', ' ')
-        .replaceAll('&amp;', '&')
-        .replaceAll('&lt;', '<')
-        .replaceAll('&gt;', '>')
-        .replaceAll('&quot;', '"')
-        .replaceAll('&#39;', "'")
-        .replaceAll('&#039;', "'");
-      out = out.replace(/\s+/g, ' ').trim();
-      return out;
-    }
-
-    let chatContextPromise = null;
-
-    async function loadChatContext(maxChars) {
-      const limit = clampInt(maxChars, 0, 40000, 12000);
-      if (!chatContextPromise) {
-        chatContextPromise = (async () => {
-          const knowledge = await fetchOptionalText('chat-knowledge.md');
-          const indexHtml = await fetchOptionalText('index.html');
-          const privHtml = await fetchOptionalText('privacidade.html');
-          const termosHtml = await fetchOptionalText('termos.html');
-
-          const siteText = stripHtmlToText([indexHtml, privHtml, termosHtml].filter(Boolean).join('\n\n'));
-          const knowledgeText = String(knowledge || '').trim();
-
-          const merged = [
-            knowledgeText ? `\n\n# Conhecimento adicional\n${knowledgeText}` : '',
-            siteText ? `\n\n# Conteúdo do site\n${siteText}` : '',
-          ].join('');
-
-          const normalized = merged.replace(/\s+/g, ' ').trim();
-          if (!normalized) return '';
-          return normalized.slice(0, limit);
-        })();
-      }
-
-      const ctx = await chatContextPromise;
-      if (!ctx) return '';
-      return String(ctx).slice(0, limit);
-    }
-
     function renderTemplate(text, vars) {
       let out = String(text || '');
       for (const k in (vars || {})) {
@@ -1349,23 +1261,13 @@
       }
     }
 
-    function buildWhatsAppLink(number) {
+    function buildWhatsAppLink(number, text) {
       const digits = String(number || '').replace(/\D/g, '');
       if (!digits) return DEFAULT_WHATSAPP_LINK;
-      return `https://wa.me/${digits}`;
-    }
-
-    function matchCannedReply(message, cannedReplies) {
-      const text = normalizeForIntent(message);
-      if (!text) return null;
-      const list = Array.isArray(cannedReplies) ? cannedReplies : [];
-      for (const item of list) {
-        if (!item || typeof item !== 'object') continue;
-        const whenAny = Array.isArray(item.whenAny) ? item.whenAny : [];
-        if (!whenAny.length) continue;
-        if (whenAny.some((k) => text.includes(normalizeForIntent(k)))) return item;
-      }
-      return null;
+      const base = `https://wa.me/${digits}`;
+      const rawText = typeof text === 'string' ? text.trim() : '';
+      if (!rawText) return base;
+      return `${base}?text=${encodeURIComponent(rawText)}`;
     }
 
     function shouldRouteToWhatsApp(message, routeKeywords) {
@@ -1427,9 +1329,19 @@
         .map((p) => p.trim())
         .filter(Boolean);
 
-      const questionCandidate = [...parts].reverse().find((p) => p.includes('?')) || '';
+      // Evita duplicar a mesma pergunta (antes, a frase com '?' virava conteúdo e também pergunta final).
+      let questionIndex = -1;
+      for (let i = parts.length - 1; i >= 0; i--) {
+        if (parts[i].includes('?')) {
+          questionIndex = i;
+          break;
+        }
+      }
+
+      const questionCandidate = questionIndex >= 0 ? parts[questionIndex] : '';
       const contentCandidates = parts
-        .map((p) => (p.includes('?') ? p.replace(/\?+/g, '.').trim() : p))
+        .filter((p, idx) => idx !== questionIndex)
+        .filter((p) => !p.includes('?'))
         .map((p) => p.replace(/\.+$/g, '.').trim())
         .filter(Boolean);
 
@@ -1457,181 +1369,178 @@
 
     let configCache = null;
 
-    function extractGroqError(data) {
-      try {
-        const err = data && (data.error || data.err || data.message);
-        if (typeof err === 'string') return err;
-        if (err && typeof err === 'object') {
-          const msg = err.message || err.detail || err.type;
-          if (typeof msg === 'string') return msg;
-        }
-        return '';
-      } catch (_) {
-        return '';
-      }
+    const composeState = {
+      active: false,
+      step: 0,
+      draft: {
+        nome: '',
+        empresa: '',
+        nicho: '',
+        cidade: '',
+        objetivo: '',
+        canal: '',
+      },
+    };
+
+    function resetCompose() {
+      composeState.active = false;
+      composeState.step = 0;
+      composeState.draft = { nome: '', empresa: '', nicho: '', cidade: '', objetivo: '', canal: '' };
     }
 
-    async function sendToGroq() {
+    function isDeclineMessage(message) {
+      const text = normalizeForIntent(message).trim();
+      if (!text) return false;
+      return text === 'nao' || text === 'não' || text === 'n' || text === 'agora nao' || text === 'agora não' || text === 'depois' || text === 'talvez';
+    }
+
+    function matchFaqItem(message, faqList) {
+      const text = normalizeForIntent(message);
+      if (!text) return null;
+      const list = Array.isArray(faqList) ? faqList : [];
+      for (const item of list) {
+        if (!item || typeof item !== 'object') continue;
+        const whenAny = Array.isArray(item.whenAny) ? item.whenAny : [];
+        if (!whenAny.length) continue;
+        if (whenAny.some((k) => text.includes(normalizeForIntent(k)))) return item;
+      }
+      return null;
+    }
+
+    function buildComposeMessage(draft) {
+      const nome = String(draft?.nome || '').trim();
+      const empresa = String(draft?.empresa || '').trim();
+      const nicho = String(draft?.nicho || '').trim();
+      const cidade = String(draft?.cidade || '').trim();
+      const objetivo = String(draft?.objetivo || '').trim();
+      const canal = String(draft?.canal || '').trim();
+
+      const parts = [];
+      parts.push('Olá! Quero um diagnóstico estratégico gratuito.');
+      if (nome) parts.push(`Meu nome é ${nome}.`);
+      if (empresa || nicho) parts.push(`Negócio: ${[empresa, nicho].filter(Boolean).join(' — ')}.`);
+      if (cidade) parts.push(`Cidade: ${cidade}.`);
+      if (objetivo) parts.push(`Objetivo: ${objetivo}.`);
+      if (canal) parts.push(`Canal prioritário: ${canal}.`);
+      parts.push('Pode me orientar nos próximos passos?');
+      return parts.join(' ');
+    }
+
+    async function sendToRobot() {
       const config = await loadChatConfig();
       configCache = config;
-      const tokenCharRatio = config && config.settings ? config.settings.tokenCharRatio : 4;
 
-      const whatsappNumber = config?.actions?.whatsapp?.number || DEFAULT_WHATSAPP_NUMBER;
+      const whatsappNumber = config?.whatsapp?.number || DEFAULT_WHATSAPP_NUMBER;
+      const defaultWaText = config?.whatsapp?.defaultText || DEFAULT_CHAT_CONFIG.whatsapp.defaultText;
       const whatsappLink = buildWhatsAppLink(whatsappNumber);
 
       const userMessage = (chatHistory.slice().reverse().find((m) => m && m.role === 'user') || {}).content || '';
+      const normalized = normalizeForIntent(userMessage);
 
-      function isDeclineMessage(message) {
-        const text = normalizeForIntent(message).trim();
-        if (!text) return false;
-        return (
-          text === 'nao' ||
-          text === 'não' ||
-          text === 'n' ||
-          text === 'agora nao' ||
-          text === 'agora não' ||
-          text === 'depois' ||
-          text === 'talvez'
-        );
+      // Fluxo: composição de mensagem pro WhatsApp
+      if (composeState.active) {
+        if (composeState.step === 0) {
+          // Espera uma linha com informações livres e segue.
+          const raw = String(userMessage || '').trim();
+          if (raw) {
+            // Preenche o que der com heurísticas simples.
+            if (!composeState.draft.objetivo) composeState.draft.objetivo = raw;
+          }
+          composeState.step = 1;
+          return enforceTwoSentencesPlusQuestion('Perfeito. Qual é seu nome, sua empresa/nicho e sua cidade?');
+        }
+
+        if (composeState.step === 1) {
+          const raw = String(userMessage || '').trim();
+          if (raw) {
+            // Heurística: tenta separar por vírgula
+            const pieces = raw.split(',').map((p) => p.trim()).filter(Boolean);
+            if (pieces[0] && !composeState.draft.nome) composeState.draft.nome = pieces[0];
+            if (pieces[1] && !composeState.draft.nicho) composeState.draft.nicho = pieces[1];
+            if (pieces[2] && !composeState.draft.cidade) composeState.draft.cidade = pieces[2];
+
+            // Se não veio com vírgulas, guarda como nicho/cidade genérico
+            if (pieces.length < 2 && !composeState.draft.nicho) composeState.draft.nicho = raw;
+          }
+
+          const msg = buildComposeMessage(composeState.draft);
+          const linkWithText = buildWhatsAppLink(whatsappNumber, msg);
+          resetCompose();
+
+          // Tenta abrir já; se o navegador bloquear pop-up, ainda deixamos o link clicável.
+          openExternalLink(linkWithText);
+          return enforceTwoSentencesPlusQuestion(`Perfeito. Vou te encaminhar com uma mensagem pronta: ${linkWithText}. Quer que eu ajuste o texto para ficar mais curto ou mais detalhado?`);
+        }
+
+        resetCompose();
       }
 
+      // Ação pendente: diagnóstico (oferta inicial)
       if (pendingAction && pendingAction.type === 'diagnostic') {
-        const confirmKeywords = config?.actions?.whatsapp?.confirmKeywords;
+        const confirmKeywords = config?.whatsapp?.confirmKeywords;
         if (isConfirmMessage(userMessage, confirmKeywords)) {
-          const link = pendingAction.link || whatsappLink;
+          const link = pendingAction.link || buildWhatsAppLink(whatsappNumber, defaultWaText);
           openExternalLink(link);
           pendingAction = null;
           return enforceTwoSentencesPlusQuestion(`Perfeito. Vou te encaminhar agora: ${link}. Quer que eu te ajude a escrever a mensagem?`);
         }
         if (isDeclineMessage(userMessage)) {
           pendingAction = null;
-          return enforceTwoSentencesPlusQuestion('Sem problema. Me conta rapidinho: qual é seu nicho e o que você quer melhorar hoje?');
+          return enforceTwoSentencesPlusQuestion('Sem problema. Qual é seu nicho e o que você quer melhorar hoje?');
         }
-        // Se respondeu outra coisa, segue atendimento normal sem forçar diagnóstico
         pendingAction = null;
       }
 
+      // Ação pendente: WhatsApp
       if (pendingAction && pendingAction.type === 'whatsapp') {
-        const confirmKeywords = config?.actions?.whatsapp?.confirmKeywords;
+        const confirmKeywords = config?.whatsapp?.confirmKeywords;
         if (isConfirmMessage(userMessage, confirmKeywords) && lastAssistantMentionsWhatsApp()) {
-          openExternalLink(pendingAction.link);
+          const link = pendingAction.link || whatsappLink;
+          openExternalLink(link);
           pendingAction = null;
-          return enforceTwoSentencesPlusQuestion(`Perfeito. Aqui está o link: ${whatsappLink}. Quer que eu te ajude a escrever a mensagem?`);
+          return enforceTwoSentencesPlusQuestion(`Perfeito. Aqui está o link: ${link}. Quer que eu te ajude a escrever a mensagem?`);
         }
       }
 
-      const canned = matchCannedReply(userMessage, config?.cannedReplies);
-      if (canned) {
-        const replyText = renderTemplate(canned.reply, {
+      // Se o usuário disse “sim” após a pergunta de “ajudo a escrever a mensagem?”
+      if (isConfirmMessage(userMessage, config?.whatsapp?.confirmKeywords) && lastAssistantMentionsWhatsApp()) {
+        composeState.active = true;
+        composeState.step = 0;
+        return enforceTwoSentencesPlusQuestion('Perfeito. Me diga em 1 frase o que você quer (ex.: diagnóstico, orçamento, anúncios, conteúdo) e qual seu objetivo principal.');
+      }
+
+      // FAQ
+      const faqItem = matchFaqItem(userMessage, config?.faq);
+      if (faqItem) {
+        const replyText = renderTemplate(faqItem.reply, {
           WHATSAPP_LINK: whatsappLink,
           WHATSAPP_NUMBER: String(whatsappNumber),
         });
-        if (String(canned.action || '').toLowerCase() === 'whatsapp') {
-          pendingAction = { type: 'whatsapp', link: whatsappLink };
+
+        const action = String(faqItem.action || 'none').toLowerCase();
+        if (action === 'route_whatsapp') {
+          const linkWithText = buildWhatsAppLink(whatsappNumber, defaultWaText);
+          pendingAction = { type: 'whatsapp', link: linkWithText };
+        } else if (action === 'ask_compose') {
+          // só faz a pergunta, e se o usuário confirmar a gente entra no fluxo acima.
         }
+
         return enforceTwoSentencesPlusQuestion(replyText);
       }
 
-      if (shouldRouteToWhatsApp(userMessage, config?.actions?.whatsapp?.routeKeywords)) {
-        pendingAction = { type: 'whatsapp', link: whatsappLink };
-        return enforceTwoSentencesPlusQuestion(buildWhatsAppRoutingReply(whatsappNumber, whatsappLink));
+      // Roteamento por palavras-chave (assuntos que normalmente viram atendimento)
+      if (shouldRouteToWhatsApp(userMessage, config?.whatsapp?.routeKeywords)) {
+        const linkWithText = buildWhatsAppLink(whatsappNumber, defaultWaText);
+        pendingAction = { type: 'whatsapp', link: linkWithText };
+        return enforceTwoSentencesPlusQuestion(buildWhatsAppRoutingReply(whatsappNumber, linkWithText));
       }
 
-      // Preferir backend (mais seguro e sem expor chave no navegador)
-      try {
-        const historyForRequest = chatHistory.slice();
-        const res = await fetch(SERVER_CHAT_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: historyForRequest }),
-        });
-
-        // Se não existe backend (site estático), cai pro modo client-side.
-        if (res.ok) {
-          const data = await res.json().catch(() => null);
-          const reply = data && typeof data.reply === 'string' ? data.reply : '';
-          if (reply && reply.trim()) return enforceTwoSentencesPlusQuestion(reply);
-        } else if (res.status !== 404 && res.status !== 405) {
-          // Erros do backend (500, 401 etc.) devem aparecer como mensagem amigável.
-          const data = await res.json().catch(() => null);
-          const detail = (data && (data.error || data.detail)) ? String(data.error || data.detail) : '';
-          if (detail) throw new Error(detail);
-        }
-      } catch (err) {
-        // se falhar aqui, ainda tentamos o client-side abaixo
+      // Respostas rápidas por intenção comum
+      if (normalized.includes('oi') || normalized.includes('ola') || normalized.includes('olá') || normalized.includes('bom dia') || normalized.includes('boa tarde') || normalized.includes('boa noite')) {
+        return enforceTwoSentencesPlusQuestion(`${getTimeGreeting()}! Posso tirar dúvidas rápidas e também te direcionar pro WhatsApp quando fizer sentido. Você quer diagnóstico gratuito, saber dos serviços ou falar com especialista?`);
       }
 
-      const { apiKey, model: envModel } = await loadGroqEnv();
-      const model = normalizeGroqModel(envModel);
-
-      const ctx = await loadChatContext(config?.settings?.maxContextChars);
-      const rules = Array.isArray(config?.prompts?.rules) ? config.prompts.rules : [];
-
-      const greetingHint = getTimeGreeting();
-
-      const systemPrompt = [
-        String(config?.prompts?.baseSystem || DEFAULT_CHAT_CONFIG.prompts.baseSystem).trim(),
-        String(config?.prompts?.tone || DEFAULT_CHAT_CONFIG.prompts.tone).trim(),
-        `Saudação sugerida agora: ${greetingHint}.`,
-        rules.length ? `Regras:\n- ${rules.map((r) => String(r)).join('\n- ')}` : '',
-        ctx ? `Contexto do site (use somente se ajudar):\n${ctx}` : '',
-      ]
-        .filter(Boolean)
-        .join('\n\n');
-
-      const maxPromptTokens = clampInt(config?.settings?.maxEstimatedPromptTokens, 600, 12000, 3200);
-      const maxSessionTokens = clampInt(config?.settings?.maxSessionEstimatedTokens, 400, 60000, 2400);
-      const maxOutputTokens = clampInt(config?.settings?.maxOutputTokens, 32, 1024, 160);
-
-      const historyForRequest = chatHistory.slice();
-      while (historyForRequest.length > 2) {
-        const estimated = estimateTokensFromMessages([{ role: 'system', content: systemPrompt }].concat(historyForRequest), tokenCharRatio);
-        if (estimated <= maxPromptTokens) break;
-        historyForRequest.shift();
-      }
-
-      const promptEstimatedTokens = estimateTokensFromMessages([{ role: 'system', content: systemPrompt }].concat(historyForRequest), tokenCharRatio);
-      chatSessionUsage.lastRequestEstimatedTokens = promptEstimatedTokens;
-
-      // Orçamento de tokens por sessão (evita custo/abuso).
-      if (chatSessionUsage.estimatedTokens + promptEstimatedTokens + maxOutputTokens > maxSessionTokens) {
-        pendingAction = { type: 'whatsapp', link: whatsappLink };
-        return enforceTwoSentencesPlusQuestion(buildWhatsAppRoutingReply(whatsappNumber, whatsappLink));
-      }
-
-      const payload = {
-        model,
-        messages: [{ role: 'system', content: systemPrompt }].concat(historyForRequest),
-        temperature: 0.3,
-        max_tokens: maxOutputTokens,
-      };
-
-      let response;
-      try {
-        response = await fetch(GROQ_ENDPOINT, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify(payload),
-        });
-      } catch (err) {
-        throw new Error('Falha ao chamar a Groq no navegador (CORS/rede).');
-      }
-
-      const data = await response.json().catch(() => null);
-      if (!response.ok) {
-        const detail = extractGroqError(data) || `HTTP ${response.status}`;
-        throw new Error(detail);
-      }
-
-      const reply = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-      if (typeof reply !== 'string' || !reply.trim()) throw new Error('Resposta inválida da Groq.');
-      const finalReply = enforceTwoSentencesPlusQuestion(reply);
-      chatSessionUsage.estimatedTokens += promptEstimatedTokens + estimateTokensFromText(finalReply, tokenCharRatio);
-      return finalReply;
+      return enforceTwoSentencesPlusQuestion(String(config?.fallback || DEFAULT_CHAT_CONFIG.fallback));
     }
 
     fab.addEventListener('click', () => setOpen(true));
@@ -1654,25 +1563,14 @@
       typing.setAttribute('aria-busy', 'true');
 
       try {
-        const reply = await sendToGroq();
+        const reply = await sendToRobot();
         typing.removeAttribute('aria-busy');
         typing.innerHTML = formatMessageHtml('assistant', reply);
         pushHistory('assistant', reply);
         scrollToBottom();
       } catch (err) {
         typing.removeAttribute('aria-busy');
-        const errMsg = (err && err.message) ? String(err.message) : '';
-        if (errMsg.includes('GROQ_API_KEY')) {
-          typing.textContent = 'Chat ainda não configurado no servidor. Configure GROQ_API_KEY no backend (Node/serverless) e tente novamente.';
-        } else if (errMsg.includes('env.txt') || errMsg.includes('.env')) {
-          typing.textContent = 'Chat ainda não configurado. Para site estático, isso exigiria publicar a chave (não recomendado). O ideal é usar um backend (/api/chat).';
-        } else if (errMsg.toLowerCase().includes('cors')) {
-          typing.textContent = 'Seu navegador bloqueou a chamada direta (CORS/rede). Se isso acontecer no GitHub Pages, você vai precisar de um proxy (serverless) para o chat.';
-        } else {
-          typing.textContent = 'Não consegui responder agora. Tente novamente em instantes.';
-        }
-        // eslint-disable-next-line no-console
-        console.error('Chat error:', err);
+        typing.textContent = 'Não consegui responder agora. Tente novamente em instantes.';
       }
     });
 

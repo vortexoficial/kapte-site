@@ -93,32 +93,17 @@ Todos os elementos foram otimizados para mobile com:
 
 ---
 
-##  Chat IA (Groq)
+## Chat (Robô)
 
-### Modo estático (GitHub Pages) ? 100% no navegador
+O chat do site é um **robô determinístico (sem IA)**: responde por palavras‑chave/FAQ e, quando fizer sentido, **direciona para o WhatsApp**.
 
-O chat foi refatorado para funcionar **sem backend**, chamando a Groq direto do browser.
+### Como editar respostas
 
-1. Crie um arquivo `env.txt` na raiz do projeto (você pode copiar de `env.example.txt`)
-2. Preencha com sua chave:
-
-```txt
-GROQ_API_KEY=SUA_CHAVE_AQUI
-GROQ_MODEL=llama-3.1-8b-instant
-```
-
-3. Publique o site com o `env.txt` junto.
-
-Obs. importante: em hospedagem estática a chave fica **pública** (qualquer pessoa pode inspecionar e copiar). Se você precisa proteger a chave, use um proxy/serverless.
-
-Obs. sobre CORS: o código envia os headers corretos (`Authorization`, `Content-Type`), mas se a API bloquear CORS para chamadas do browser, você vai precisar de um proxy.
-
-### “Treinar” o chat com conteúdo do site
-
-O servidor já injeta no prompt o texto do site (HTML) + um arquivo de conhecimento.
-
-- Edite: `chat-knowledge.md`
-- Para incluir os vídeos, coloque **transcrição ou resumo** lá (o modelo não consegue assistir MP4 diretamente).
+- Edite: `chat-config.json`
+- Ajuste:
+   - `whatsapp.number` (número do WhatsApp)
+   - `faq[]` (palavras‑chave em `whenAny` e resposta em `reply`)
+   - `fallback` (resposta padrão quando não encontrar correspondência)
 
 ---
 
