@@ -1467,9 +1467,9 @@
           const linkWithText = buildWhatsAppLink(whatsappNumber, msg);
           resetCompose();
 
-          // Tenta abrir já; se o navegador bloquear pop-up, ainda deixamos o link clicável.
-          openExternalLink(linkWithText);
-          return enforceTwoSentencesPlusQuestion(`Perfeito. Vou te encaminhar com uma mensagem pronta: ${linkWithText}. Quer que eu ajuste o texto para ficar mais curto ou mais detalhado?`);
+          // Não abre automaticamente: pede confirmação antes de redirecionar.
+          pendingAction = { type: 'whatsapp', link: linkWithText };
+          return enforceTwoSentencesPlusQuestion(`Montei uma mensagem pronta pra você: ${linkWithText}. Quer que eu te encaminhe pro WhatsApp agora?`);
         }
 
         resetCompose();
@@ -1500,6 +1500,14 @@
           pendingAction = null;
           return enforceTwoSentencesPlusQuestion(`Perfeito. Aqui está o link: ${link}. Quer que eu te ajude a escrever a mensagem?`);
         }
+
+        if (isDeclineMessage(userMessage)) {
+          pendingAction = null;
+          return enforceTwoSentencesPlusQuestion('Sem problemas. Quer tirar uma dúvida rápida ou saber dos serviços?');
+        }
+
+        // Se não confirmou na mensagem seguinte, não mantém a ação pendente.
+        pendingAction = null;
       }
 
       // Se o usuário disse “sim” após a pergunta de “ajudo a escrever a mensagem?”

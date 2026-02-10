@@ -104,7 +104,7 @@
     {
       "id": "preco",
       "whenAny": ["preco", "preço", "valor", "quanto custa", "investimento", "orcamento", "orçamento"],
-      "reply": "O investimento depende do objetivo e do escopo (conteúdo, anúncios, estratégia etc.). Se você me disser seu nicho e meta, eu te direciono; ou posso te encaminhar pro WhatsApp agora. Qual é sua meta principal?",
+      "reply": "O investimento depende do objetivo e do escopo (conteúdo, anúncios, estratégia etc.). Se você me disser seu nicho e meta, eu te direciono por aqui. Quer que eu te encaminhe pro WhatsApp agora?",
       "action": "route_whatsapp"
     },
     {
