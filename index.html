@@ -389,7 +389,7 @@
           </div>
         </div>
         <div class="client-logo-card">
-          <img src="assets/images/jcsistemas.png" alt="JC Sistemas" class="logo-img">
+          <img src="assets/images/jqconsultoria.png" alt="JC Sistemas" class="logo-img">
           <div class="client-mini-meta">
             <span class="client-name">JC Sistemas</span>
             <span class="client-cat">Consultoria</span>
@@ -441,7 +441,7 @@
           </div>
         </div>
         <div class="client-logo-card">
-          <img src="assets/images/jcsistemas.png" alt="JC Sistemas" class="logo-img">
+          <img src="assets/images/jqconsultoria.png" alt="JC Sistemas" class="logo-img">
           <div class="client-mini-meta">
             <span class="client-name">JC Sistemas</span>
             <span class="client-cat">Consultoria</span>
@@ -1102,6 +1102,36 @@
 </div>
 
   <!-- JS -->
+  <script>
+    (function () {
+      function hideLoaderSafely() {
+        var loader = document.querySelector('.page-loader');
+        if (!loader) return;
+        if (loader.classList && loader.classList.contains('is-hiding')) return;
+
+        try {
+          if (loader.classList) loader.classList.add('is-hiding');
+        } catch (_) {}
+
+        window.setTimeout(function () {
+          try { loader.style.display = 'none'; } catch (_) {}
+        }, 420);
+      }
+
+      if (document.readyState === 'complete') {
+        window.setTimeout(hideLoaderSafely, 0);
+      } else {
+        window.addEventListener('load', hideLoaderSafely, false);
+        window.addEventListener('DOMContentLoaded', function () {
+          // Failsafe leve: se o load demorar, não deixa travar.
+          window.setTimeout(hideLoaderSafely, 3000);
+        }, false);
+      }
+
+      // Failsafe duro
+      window.setTimeout(hideLoaderSafely, 8000);
+    })();
+  </script>
   <script src="js/main.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
